@@ -1,3 +1,7 @@
+# Requirements file for 'cookiecutter-dotfiles'
+# Python 3.10+
+
+# Base dependencies
 cookiecutter>=2.2.0
 
 # Testing and linting
