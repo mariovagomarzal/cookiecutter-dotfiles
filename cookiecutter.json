@@ -3,6 +3,7 @@
     "author": "Your Name",
     "github_username": "your_github_username",
     "github_repo": "dotfiles",
+    "dotfiles_dir": "$HOME/Projects/dotfiles",
     "_jinja2_env_vars": {
         "comment_start_string": "{##",
         "comment_end_string": "##}"

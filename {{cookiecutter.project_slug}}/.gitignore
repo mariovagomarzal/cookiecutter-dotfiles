@@ -1,2 +1,2 @@
-# Log files
-*.log
+# Log dir
+log/
