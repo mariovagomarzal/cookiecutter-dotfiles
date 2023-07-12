@@ -299,3 +299,6 @@ setup () {
 
     exit $exit_code
 }
+
+# Run the setup.
+setup
