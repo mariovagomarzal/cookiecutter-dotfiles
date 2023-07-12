@@ -12,36 +12,7 @@ export LOG_DIR="$DOTFILES_DIR/log"
 
 export GITHUB_REPO_NAME="{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}"
 export GITHUB_REPO_URL="https://github.com/$GITHUB_REPO_NAME"
-export GITHUB_REPO_RAW_URL="https://raw.githubusercontent.com/$GITHUB_REPO_NAME"
-
-
-# ┌────────────────┐
-# │ OS recognition │
-# └────────────────┘
-
-# - - - - - - - - - - - - - - - - - - - -
-# Get the OS name.
-# Arguments:
-#   None.
-# Returns:
-#   The OS name. Possible outputs are:
-#     - linux
-#     - macos
-#     - unknown
-# - - - - - - - - - - - - - - - - - - - -
-get_os_name() {
-    local os_name=""
-    
-    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-        os_name="linux"
-    elif [[ "$OSTYPE" == "darwin"* ]]; then
-        os_name="macos"
-    else
-        os_name="unknown"
-    fi
-    
-    printf $os_name
-}
+export GITHUB_REPO_RAW_URL="https://raw.githubusercontent.com/$GITHUB_REPO_NAME" 
 
 
 # ┌─────────────────────┐
@@ -207,12 +178,13 @@ clone_repository() {
 #   None. Exit with error if something goes wrong.
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 setup () {
-    local -r os_name=$(get_os_name)
+    local os_name=""
 
     ask_for_sudo || exit 1
     load_utils || exit 1
 
     # Setup the dotfiles.
+    os_name=$(get_os_name)
     print_header "Setting up the dotfiles for $os_name"
 
     # Install Git (or Xcode Command Line Tools on macOS)
