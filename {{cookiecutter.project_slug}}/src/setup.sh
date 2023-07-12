@@ -96,7 +96,7 @@ ask_for_sudo() {
 # - - - - - - - - - - - - - - - - - - - - - -
 load_utils() {
     local -r utils_file="$DOTFILES_DIR/src/utils.sh"
-    local -r utils_url="$GITHUB_REPO_RAW_URL/main/src/utils.sh"
+    local -r utils_url="$GITHUB_REPO_RAW_URL/${{ cookiecutter.default_branch }}/src/utils.sh"
     local tmp_utils=""
     
     if [[ ! -f "$utils_file" ]]; then
@@ -232,7 +232,7 @@ setup () {
     # Clone the repository if needed.
     clone_repository || exit 1
 
-    # Installations.
+    # Install the packages.
     print_subheader "Installing packages (ant others)"
     ask_confirmation "Do you want to install packages?"
     if [[ $? -eq 0 ]]; then
