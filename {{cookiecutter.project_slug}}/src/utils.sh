@@ -111,35 +111,6 @@ ask_confirmation() {
 }
 
 
-# ┌────────────────┐
-# │ OS recognition │
-# └────────────────┘
-
-# - - - - - - - - - - - - - - - - - - - -
-# Get the OS name.
-# Arguments:
-#   None.
-# Returns:
-#   The OS name. Possible outputs are:
-#     - linux
-#     - macos
-#     - unknown
-# - - - - - - - - - - - - - - - - - - - -
-get_os_name() {
-    local os_name=""
-    
-    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-        os_name="linux"
-    elif [[ "$OSTYPE" == "darwin"* ]]; then
-        os_name="macos"
-    else
-        os_name="unknown"
-    fi
-    
-    printf $os_name
-}
-
-
 # ┌─────────────────────┐
 # │ Background commands │
 # └─────────────────────┘

@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Setup script for {{ cookiecutter.project_slug }}
+# Setup script for the dotfiles
 # NOTE: Make sure you know what you are doing before
 #       running this script. Read the documentation
 #       first to understand what this script does.
@@ -12,7 +12,14 @@ export LOG_DIR="$DOTFILES_DIR/log"
 
 export GITHUB_REPO_NAME="{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}"
 export GITHUB_REPO_URL="https://github.com/$GITHUB_REPO_NAME"
-export GITHUB_REPO_RAW_URL="https://raw.githubusercontent.com/$GITHUB_REPO_NAME" 
+export GITHUB_REPO_RAW_URL="https://raw.githubusercontent.com/$GITHUB_REPO_NAME"
+
+export INSTALL_ORDER=(
+    
+)
+export BOOTSTRAP_ORDER=(
+    
+)
 
 
 # ┌─────────────────────┐
@@ -146,13 +153,10 @@ install_xcode_command_line_tools() {
 clone_repository() {
     local -r dotfiles_dir="$DOTFILES_DIR"
     local -r dotfiles_url="$GITHUB_REPO_URL"
-    local clone_repo=0
 
     if [[ ! -d "$dotfiles_dir" ]]; then
         ask_confirmation "Do you want to clone the repository?"
-        clone_repo=$?
-
-        if [[ $clone_repo -eq 0 ]]; then
+        if [[ $? -eq 0 ]]; then
             run_command "git clone $dotfiles_url $dotfiles_dir" \
                 "/dev/null" \
                 "Cloning the repository..." \
@@ -178,13 +182,14 @@ clone_repository() {
 #   None. Exit with error if something goes wrong.
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 setup () {
-    local os_name=""
+    local -r os_name="$get_os_name"
+
+    local exit_code_installs=0
 
     ask_for_sudo || exit 1
     load_utils || exit 1
 
     # Setup the dotfiles.
-    os_name=$(get_os_name)
     print_header "Setting up the dotfiles for $os_name"
 
     # Install Git (or Xcode Command Line Tools on macOS)
@@ -197,4 +202,14 @@ setup () {
 
     # Clone the repository if needed.
     clone_repository || exit 1
+
+    # Installations.
+    print_subheader "Installing packages (ant others)"
+    ask_confirmation "Do you want to install packages?"
+    if [[ $? -eq 0 ]]; then
+        source "$DOTFILES_DIR/src/install.sh"
+        install_packages "$INSTALL_ORDER" "$os_name" || exit_code_installs=1
+    else
+        print_info "Skipping installations."
+    fi
 }
