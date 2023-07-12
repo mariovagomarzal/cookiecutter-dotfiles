@@ -14,10 +14,19 @@ export GITHUB_REPO_NAME="{{ cookiecutter.github_username }}/{{ cookiecutter.proj
 export GITHUB_REPO_URL="https://github.com/$GITHUB_REPO_NAME"
 export GITHUB_REPO_RAW_URL="https://raw.githubusercontent.com/$GITHUB_REPO_NAME"
 
-export INSTALL_ORDER=(
+# macOS packages
+export MACOS_INSTALL_ORDER=(
     
 )
-export BOOTSTRAP_ORDER=(
+export MACOS_BOOTSTRAP_ORDER=(
+    
+)
+
+# Linux packages
+export LINUX_INSTALL_ORDER=(
+    
+)
+export LINUX_BOOTSTRAP_ORDER=(
     
 )
 
@@ -214,7 +223,18 @@ setup () {
     local -r os_name="$get_os_name"
 
     local exit_code_installs=0
+    local bootstrap_packages=""
+    local exit_code_bootstrap=0
+    local exit_code=0
 
+    # Check the OS is supported.
+    if [[ "$os_name" -eq "unknown" ]]; then
+        printf "Sorry, unsupported OS."
+        exit 1
+    fi
+
+    # Ask for sudo permissions
+    # and load utils.
     ask_for_sudo || exit 1
     load_utils || exit 1
 
@@ -241,4 +261,41 @@ setup () {
     else
         print_info "Skipping installations."
     fi
+
+    # Bootstrap the dotfiles.
+    print_subheader "Bootstrapping packages (and others)"
+    # Check if exit_code_installs is different from 0.
+    if [[ $exit_code_installs -ne 0 ]]; then
+        print_info "Some of the packages failed to install"
+        ask_confirmation "Do you want to bootstrap packages anyway?"
+        bootstrap_packages=$?
+    else
+        ask_confirmation "Do you want to bootstrap packages?"
+        bootstrap_packages=$?
+    fi
+
+    if [[ $bootstrap_packages -eq 0 ]]; then
+        source "$DOTFILES_DIR/src/bootstrap.sh"
+        bootstrap_packages "$BOOTSTRAP_ORDER" "$os_name" || exit_code_bootstrap=1
+    else
+        print_info "Skipping bootstrap."
+    fi
+    
+    # Summarize the setup.
+    print_header "Setup summary"
+    if [[ $exit_code_installs -eq 0 ]]; then
+        print_success "Packages installed successfully."
+    else
+        print_error "Some of the packages failed to install."
+        exit_code=1
+    fi
+
+    if [[ $exit_code_bootstrap -eq 0 ]]; then
+        print_success "Packages bootstrapped successfully."
+    else
+        print_error "Some of the packages failed to bootstrap."
+        exit_code=1
+    fi
+
+    exit $exit_code
 }
