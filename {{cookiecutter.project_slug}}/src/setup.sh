@@ -105,7 +105,7 @@ ask_for_sudo() {
 # - - - - - - - - - - - - - - - - - - - - - -
 load_utils() {
     local -r utils_file="$DOTFILES_DIR/src/utils.sh"
-    local -r utils_url="$GITHUB_REPO_RAW_URL/${{ cookiecutter.default_branch }}/src/utils.sh"
+    local -r utils_url="$GITHUB_REPO_RAW_URL/{{ cookiecutter.default_branch }}/src/utils.sh"
     local tmp_utils=""
     
     if [[ ! -f "$utils_file" ]]; then
