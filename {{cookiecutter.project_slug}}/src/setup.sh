@@ -220,7 +220,7 @@ clone_repository() {
 #   None. Exit with error if something goes wrong.
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 setup () {
-    local -r os_name="$get_os_name"
+    local -r os_name=$(get_os_name)
 
     local exit_code_installs=0
     local bootstrap_packages=""
@@ -229,7 +229,7 @@ setup () {
 
     # Check the OS is supported.
     if [[ "$os_name" -eq "unknown" ]]; then
-        printf "Sorry, unsupported OS."
+        printf "Sorry, unsupported OS.\n"
         exit 1
     fi
 
