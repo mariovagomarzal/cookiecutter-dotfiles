@@ -62,7 +62,7 @@ print_header() {
 }
 
 print_subheader() {
-    print_in_magenta "${SMALL_TAB}$1\n\n"
+    print_in_magenta "\n${SMALL_TAB}$1\n\n"
 }
 
 print_question() {
