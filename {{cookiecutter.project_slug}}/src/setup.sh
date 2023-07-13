@@ -150,6 +150,8 @@ install_git() {
             print_error "Please install Git manually before continuing."
             exit 1
         fi
+    else
+        print_success "Git is already installed."
     fi
 }
 
@@ -173,6 +175,8 @@ install_xcode_command_line_tools() {
             print_error "Please install Xcode Command Line Tools manually before continuing."
             exit 1
         fi
+    else
+        print_success "Xcode Command Line Tools are already installed."
     fi
 }
 
@@ -204,6 +208,8 @@ clone_repository() {
             print_error "Please clone the repository manually before continuing."
             exit 1
         fi
+    else
+        print_success "Repository already cloned."
     fi
 }
 
@@ -228,7 +234,7 @@ setup () {
     local exit_code=0
 
     # Check the OS is supported.
-    if [[ "$os_name" -eq "unknown" ]]; then
+    if [[ "$os_name" == "unknown" ]]; then
         printf "Sorry, unsupported OS.\n"
         exit 1
     fi
