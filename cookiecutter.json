@@ -5,6 +5,7 @@
     "github_repo": "dotfiles",
     "default_branch": "main",
     "dotfiles_dir": "$HOME/Projects/dotfiles",
+    "license": ["MIT", "Apache-2.0", "The-Unlicense"],
     "macos_support": ["yes", "no"],
     "linux_support": ["yes", "no"],
     "_jinja2_env_vars": {
