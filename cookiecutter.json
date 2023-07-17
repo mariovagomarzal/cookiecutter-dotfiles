@@ -5,6 +5,8 @@
     "github_repo": "dotfiles",
     "default_branch": "main",
     "dotfiles_dir": "$HOME/Projects/dotfiles",
+    "macos_support": ["yes", "no"],
+    "linux_support": ["yes", "no"],
     "_jinja2_env_vars": {
         "comment_start_string": "{##",
         "comment_end_string": "##}"
