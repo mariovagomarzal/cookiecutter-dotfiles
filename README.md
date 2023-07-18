@@ -26,20 +26,41 @@ Here's an example of the output:
 
 ```bash
 $ cookiecutter gh:mariovagomarzal/cookiecutter-dotfiles ~/Projects
-project_slug [dotfiles]: ↩
+project_slug [dotfiles]:
 author [Your Name]: John Doe
 github_username [your_github_username]: johndoe
 github_repo [dotfiles]: ↩
 default_branch [main]: ↩
 dotfiles_dir [$HOME/Projects/dotfiles]: ↩
+Select license:
+1 - MIT
+2 - Apache-2.0
+3 - The-Unlicense
+Choose from 1, 2, 3 [1]: ↩
+Select macos_support:
+1 - yes
+2 - no
+Choose from 1, 2 [1]: ↩
+Select linux_support:
+1 - yes
+2 - no
+Choose from 1, 2 [1]: ↩
 ```
 
 This will create a new directory called `dotfiles` in your `~/Projects` directory with
 the following structure:
 
 ```bash
-dotfiles
+dotfiles/
+├── LICENSE
 ├── README.md
+├── bootstrap_order_linux.txt
+├── bootstrap_order_macos.txt
+├── install_order_linux.txt
+├── install_order_macos.txt
+├── common/
+├── linux/
+├── macos/
 └── src
     ├── bootstrap.sh
     ├── install.sh
