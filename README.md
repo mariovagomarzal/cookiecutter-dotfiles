@@ -15,17 +15,17 @@ pip install cookiecutter
 ```
 
 Once you have Cookiecutter installed, you can run the following command to create
-a new dotfiles repository:
+a new dotfiles repository in your `~/Projects` directory:
 
 ```bash
-cookiecutter gh:mariovagomarzal/cookiecutter-dotfiles
+cookiecutter -o ~/Projects gh:mariovagomarzal/cookiecutter-dotfiles
 ```
 
 You will be prompted to enter some information about your new dotfiles repository.
 Here's an example of the output:
 
 ```bash
-$ cookiecutter gh:mariovagomarzal/cookiecutter-dotfiles ~/Projects
+$ cookiecutter -o ~/Projects gh:mariovagomarzal/cookiecutter-dotfiles
 project_slug [dotfiles]:
 author [Your Name]: John Doe
 github_username [your_github_username]: johndoe
