@@ -276,6 +276,8 @@ setup () {
     # Clone the repository if needed.
     clone_repository || exit 1
 
+    # CD into the dotfiles directory.
+    cd "$DOTFILES_DIR" || exit 1
     # Install the packages.
     print_subheader "Installing packages (ant others)"
     ask_confirmation "Do you want to install packages?"
