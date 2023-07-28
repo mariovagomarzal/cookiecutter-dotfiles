@@ -100,7 +100,7 @@ print_warning() {
 #   0 if the user answered yes, 1 otherwise.
 # - - - - - - - - - - - - - - - - - - - - - - -
 ask_confirmation() {
-    print_question "$1 [Y/n] "
+    print_question "${1} [Y/n] "
     read -r -n 1
     printf "\n"
 
@@ -111,9 +111,9 @@ ask_confirmation() {
 }
 
 
-# ┌─────────────────────┐
-# │ Background commands │
-# └─────────────────────┘
+# ┌──────────────────┐
+# │ Special commands │
+# └──────────────────┘
 
 # - - - - - - - - - - - - - - - - - - - - - - -
 # Show a spinner while a command is running.
@@ -149,11 +149,11 @@ show_spinner() {
 # Run a command and show a spinnner while it's running.
 # Then, show a success or failure message.
 # Arguments:
-#   $1. Command to run.
-#   $2. Log file to write the command's output to.
-#   $2. Message to display while the command is running.
-#   $3. Message to display on success.
-#   $4. Message to display on failure.
+#   $1: Command to run.
+#   $2: Log file to write the command's output to.
+#   $2: Message to display while the command is running.
+#   $3: Message to display on success.
+#   $4: Message to display on failure.
 # Returns:
 #   Exit code of the command.
 # - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -187,6 +187,36 @@ run_command() {
     else
         print_success "${success_message}"
     fi
+
+    return $exit_code
+}
+
+
+# ┌───────────────────────────────────────────┐
+# │ Auxiliary install and bootstrap functions │
+# └───────────────────────────────────────────┘
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Loop through the lines of a file and run a command
+# using each line as a an argument.
+# Arguments:
+#   $1: Command to run.
+#   $2: File to read lines from.
+#   $3: OS name.
+# Returns:
+#   If one of the commands fails, the function will
+#   return the 1. Otherwise, it will return 0.
+# - - - - - - - - - - - - - - - - - - - - - - - - - -
+run_command_with_loop() {
+    local -r command="${1}"
+    local -r file="${2}"
+    local -r os_name="${3}"
+
+    local exit_code=0
+
+    while read line; do
+        eval "${command} ${line} ${os_name}" || exit_code=1
+    done < "${file}"
 
     return $exit_code
 }

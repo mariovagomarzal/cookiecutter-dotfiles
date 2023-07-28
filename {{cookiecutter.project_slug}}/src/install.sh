@@ -41,8 +41,8 @@ install_package() {
 
     # Run the install script.
     run_command "bash $install_script" \
-        "$LOG_DIR/$dir_install.log" \ 
-        "Installing $dir..."
+        "$LOG_DIR/$dir_install.log" \
+        "Installing $dir..." \
         "$dir installed successfully." \
         "Failed to install $dir." || exit_code=1
 
@@ -50,25 +50,23 @@ install_package() {
 }
 
 # - - - - - - - - - - - - - - - - - - - - - - -
-# Install all the packages listed in a
-# given array, in order.
+# Install all the packages listed in the
+# install order file.
 # Arguments:
-#   $1: Array of packages to install.
-#   $2: OS name.
+#   $1: OS name.
 # Returns:
 #    If any of the packages fails to install,
 #    the function will return 1. Otherwise,
 #    it will return 0.
 # - - - - - - - - - - - - - - - - - - - - - - -
 install_packages() {
-    local -r packages=("$@")
-    local -r os_name="$2"
+    local -r os_name="${1}"
 
     local exit_code=0
 
-    for package in "${packages[@]}"; do
-        install_package "$package" "$os_name" || exit_code=1
-    done
+    run_command_with_loop "install_package" \
+        "install_order_${os_name}.txt" \
+        "${os_name}" || exit_code=1
 
     return $exit_code
 }

@@ -137,25 +137,22 @@ bootstrap_package() {
 }
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# Bootstrap all the packages listed in a
-# given array, in order.
+# Bootstrap all the packages listed in the
+# bootstrap order file.
 # Arguments:
-#   $1: Array of packages (directories) to bootstrap.
-#   $2: OS name.
+#   $1: OS name.
 # Returns:
 #   If any of the functions fails, the function
 #   will return 1. Otherwise, it will return 0.
 # - - - - - - - - - - - - - - - - - - - - - - - - - - -
 bootstrap_packages() {
-    local -r packages=("$@")
-    local -r os_name="$2"
+    local -r os_name="${1}"
 
     local exit_code=0
 
-    # Loop through each package and bootstrap it.
-    for package in "${packages[@]}"; do
-        bootstrap_package "$package" "$os_name" || exit_code=1
-    done
+    run_command_with_loop "bootstrap_package" \
+        "bootstrap_order_${os_name}.txt" \
+        "${os_name}" || exit_code=1
 
     return $exit_code
 }

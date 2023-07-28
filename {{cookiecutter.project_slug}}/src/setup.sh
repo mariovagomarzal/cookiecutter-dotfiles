@@ -43,34 +43,6 @@ get_os_name() {
     printf $os_name
 }
 
-# -
-# Get the install or bootstrap order
-# for the current OS.
-# Arguments:
-#   $1: The OS name.
-#   $2: The type of order to get. Possible
-#       values are:
-#         - install
-#         - bootstrap
-# Returns:
-#   An array with the install order for the
-#   current OS. If the order file does not
-#   exist, an empty array is returned.
-# -
-get_order() {
-    local -r order_file="$DOTFILES_DIR/$2_order_$1.txt"
-
-    local install_order=""
-    
-    # Search for the file
-    # `<order_type>_order_<os_name>.txt`.
-    if [[ -f "$order_file" ]]; then
-        install_order=$(cat "$order_file")
-    fi
-
-    printf "$install_order"
-}
-
 
 # ┌─────────────────────┐
 # │ Sudo authentication │
@@ -240,8 +212,6 @@ clone_repository() {
 setup () {
     local -r os_name=$(get_os_name)
 
-    local install_order=""
-    local bootstrap_order=""
     local exit_code_installs=0
     local bootstrap_packages=""
     local exit_code_bootstrap=0
@@ -252,10 +222,6 @@ setup () {
         printf "Sorry, unsupported OS.\n"
         exit 1
     fi
-
-    # Get the install and bootstrap orders.
-    install_order=$(get_install_order "$os_name" "install")
-    bootstrap_order=$(get_bootstrap_order "$os_name" "bootstrap")
 
     # Ask for sudo permissions
     # and load utils.
@@ -282,8 +248,8 @@ setup () {
     print_subheader "Installing packages (ant others)"
     ask_confirmation "Do you want to install packages?"
     if [[ $? -eq 0 ]]; then
-        source "$DOTFILES_DIR/src/install.sh"
-        install_packages "$install_order" "$os_name" || exit_code_installs=1
+        source "src/install.sh"
+        install_packages "$os_name" || exit_code_installs=1
     else
         print_info "Skipping installations."
     fi
@@ -301,8 +267,8 @@ setup () {
     fi
 
     if [[ $bootstrap_packages -eq 0 ]]; then
-        source "$DOTFILES_DIR/src/bootstrap.sh"
-        bootstrap_packages "$bootstrap_order" "$os_name" || exit_code_bootstrap=1
+        source "src/bootstrap.sh"
+        bootstrap_packages "$os_name" || exit_code_bootstrap=1
     else
         print_info "Skipping bootstrap."
     fi
