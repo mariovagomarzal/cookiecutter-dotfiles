@@ -21,8 +21,8 @@
 #   Exit code of the 'setup.sh' script.
 # - - - - - - - - - - - - - - - - - - - - - - - - -
 setup_package() {
-    local -r dir="$1"
-    local -r os_name="$2"
+    local -r dir="${1}"
+    local -r os_name="${2}"
 
     local setup_script=""
     local exit_code=0
@@ -30,21 +30,21 @@ setup_package() {
     # First, search for the package in the specific
     # OS directory. If it's not found, search in the
     # common directory.
-    if [[ -f "$os_name/$dir/setup.sh" ]]; then
-        setup_script="$os_name/$dir/setup.sh"
-    elif [[ -f "common/$dir/setup.sh" ]]; then
-        setup_script="common/$dir/setup.sh"
+    if [[ -f "${os_name}/${dir}/setup.sh" ]]; then
+        setup_script="${os_name}/${dir}/setup.sh"
+    elif [[ -f "common/${dir}/setup.sh" ]]; then
+        setup_script="common/${dir}/setup.sh"
     else
-        print_warning "$dir 'setup.sh' script not found."
+        print_warning "${dir} 'setup.sh' script not found."
         return 1
     fi
 
     # Run the setup script.
-    run_command "bash $setup_script" \
-        "$LOG_DIR_NAME/$dir_setup.log" \
-        "Setting up $dir..." \
+    run_command "bash ${setup_script}" \
+        "$LOG_DIR_NAME/${dir}_setup.log" \
+        "Setting up ${dir}..." \
         "$dir setup successfully." \
-        "Failed to setup $dir." || exit_code=1
+        "Failed to setup ${dir}." || exit_code=1
 
     return $exit_code
 }
@@ -68,8 +68,8 @@ setup_package() {
 #   return 0.
 # - - - - - - - - - - - - - - - - - - - - - - - - - - -
 symlink_package() {
-    local -r dir="$1"
-    local -r os_name="$2"
+    local -r dir="${1}"
+    local -r os_name="${2}"
     
     local symlink_dir=""
     local exit_code=0
@@ -79,28 +79,28 @@ symlink_package() {
     # First, search for the package in the specific
     # OS directory. If it's not found, search in the
     # common directory.
-    if [[ -d "$os_name/$dir/symlink" ]]; then
-        symlink_dir="$os_name/$dir/symlink"
-    elif [[ -d "common/$dir/symlink" ]]; then
-        symlink_dir="common/$dir/symlink"
+    if [[ -d "${os_name}/${dir}/symlink" ]]; then
+        symlink_dir="${os_name}/${dir}/symlink"
+    elif [[ -d "common/${dir}/symlink" ]]; then
+        symlink_dir="common/${dir}/symlink"
     else
-        print_warning "$dir 'symlink' directory not found."
+        print_warning "${dir} 'symlink' directory not found."
         return 1
     fi
 
     # Loop through each file in the `symlinks` folder recursively.
-    for file in $(find "$symlink_dir" -type f); do
+    for file in $(find "${symlink_dir}" -type f); do
         # Get the absolute path of the file of the target symlink.
         relative_path="${file#${symlink_dir}/}"
-        target_path="$HOME/$relative_path"
+        target_path="$HOME/${relative_path}"
 
         # Create the symlink (note that we make $file absolute
         # by prepending $DOTFILES_DIR).
-        run_command "ln -sf $DOTFILES_DIR/$file $target_path" \
-            "$LOG_DIR_NAME/$dir_symlink.log" \
-            "Symlinking to '$target_path'..." \
-            "'$target_path' successfully symlinked." \
-            "'$target_path' failed to symlink." || exit_code=1
+        run_command "ln -sf $DOTFILES_DIR/${file} ${target_path}" \
+            "$LOG_DIR_NAME/${dir}_symlink.log" \
+            "Symlinking to '${target_path}'..." \
+            "'${target_path}' successfully symlinked." \
+            "'${target_path}' failed to symlink." || exit_code=1
     done
 
     return $exit_code
@@ -128,10 +128,10 @@ bootstrap_package() {
     local exit_code=0
 
     # Setup the package.
-    setup_package "$dir" "$os_name" || exit_code=1
+    setup_package "${dir}" "${os_name}" || exit_code=1
 
     # Symlink the package.
-    symlink_package "$dir" "$os_name" || exit_code=1
+    symlink_package "${dir}" "${os_name}" || exit_code=1
 
     return $exit_code
 }

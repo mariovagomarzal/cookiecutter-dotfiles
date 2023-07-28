@@ -70,7 +70,7 @@ ask_for_sudo() {
         printf "Sudo permissions granted.\n\n"
     else
         printf "Sudo permissions are required to continue.\n"
-        exit 1
+        return 1
     fi
 }
 
@@ -97,10 +97,10 @@ load_utils() {
         # save them to a temporary file,
         # and source them.
         tmp_utils=$(mktemp)
-        curl -fsSL "$utils_url" > "$tmp_utils" || exit 1
-        source "$tmp_utils"
+        curl -fsSL "${utils_url}" > "${tmp_utils}" || return 1
+        source "${tmp_utils}"
     else
-        source "$utils_file"
+        source "${utils_file}"
     fi
 }
 
@@ -132,7 +132,7 @@ install_git() {
                 "Failed to install Git." || exit 1
         else
             print_error "Please install Git manually before continuing."
-            exit 1
+            return 1
         fi
     else
         print_success "Git is already installed."
@@ -154,10 +154,10 @@ install_xcode_command_line_tools() {
                 "/dev/null" \
                 "Installing Xcode Command Line Tools..." \
                 "Xcode Command Line Tools installed successfully." \
-                "Failed to install Xcode Command Line Tools." || exit 1
+                "Failed to install Xcode Command Line Tools." || return 1
         else
             print_error "Please install Xcode Command Line Tools manually before continuing."
-            exit 1
+            return 1
         fi
     else
         print_success "Xcode Command Line Tools are already installed."
@@ -180,17 +180,17 @@ clone_repository() {
     local -r dotfiles_dir="$DOTFILES_DIR"
     local -r dotfiles_url="$GITHUB_REPO_URL"
 
-    if [[ ! -d "$dotfiles_dir" ]]; then
+    if [[ ! -d "${dotfiles_dir}" ]]; then
         ask_confirmation "Do you want to clone the repository?"
         if [[ $? -eq 0 ]]; then
-            run_command "git clone $dotfiles_url $dotfiles_dir" \
+            run_command "git clone ${dotfiles_url} ${dotfiles_dir}" \
                 "/dev/null" \
                 "Cloning the repository..." \
                 "Repository cloned successfully." \
-                "Failed to clone the repository." || exit 1
+                "Failed to clone the repository." || return 1
         else
             print_error "Please clone the repository manually before continuing."
-            exit 1
+            return 1
         fi
     else
         print_success "Repository already cloned."
@@ -218,7 +218,7 @@ setup () {
     local exit_code=0
 
     # Check the OS is supported.
-    if [[ "$os_name" == "unknown" ]]; then
+    if [[ "${os_name}" == "unknown" ]]; then
         printf "Sorry, unsupported OS.\n"
         exit 1
     fi
@@ -229,11 +229,11 @@ setup () {
     load_utils || exit 1
 
     # Setup the dotfiles.
-    print_header "Setting up the dotfiles for $os_name"
+    print_header "Setting up the dotfiles for ${os_name}"
 
     # Install Git (or Xcode Command Line Tools on macOS)
     # if needed.
-    if [[ "$os_name" == "macos" ]]; then
+    if [[ "${os_name}" == "macos" ]]; then
         install_xcode_command_line_tools || exit 1
     else
         install_git || exit 1
@@ -252,7 +252,7 @@ setup () {
     ask_confirmation "Do you want to install packages?"
     if [[ $? -eq 0 ]]; then
         source "src/install.sh"
-        install_packages "$os_name" || exit_code_installs=1
+        install_packages "${os_name}" || exit_code_installs=1
     else
         print_info "Skipping installations."
     fi
@@ -260,7 +260,7 @@ setup () {
     # Bootstrap the dotfiles.
     print_subheader "Bootstrapping packages (and others)"
     # Check if exit_code_installs is different from 0.
-    if [[ $exit_code_installs -ne 0 ]]; then
+    if [[ ${exit_code_installs} -ne 0 ]]; then
         print_info "Some of the packages failed to install"
         ask_confirmation "Do you want to bootstrap packages anyway?"
         bootstrap_packages=$?
@@ -269,7 +269,7 @@ setup () {
         bootstrap_packages=$?
     fi
 
-    if [[ $bootstrap_packages -eq 0 ]]; then
+    if [[ ${bootstrap_packages} -eq 0 ]]; then
         source "src/bootstrap.sh"
         bootstrap_packages "$os_name" || exit_code_bootstrap=1
     else
@@ -278,14 +278,14 @@ setup () {
     
     # Summarize the setup.
     print_header "Setup summary"
-    if [[ $exit_code_installs -eq 0 ]]; then
+    if [[ ${exit_code_installs} -eq 0 ]]; then
         print_success "Packages installed successfully."
     else
         print_error "Some of the packages failed to install."
         exit_code=1
     fi
 
-    if [[ $exit_code_bootstrap -eq 0 ]]; then
+    if [[ ${exit_code_bootstrap} -eq 0 ]]; then
         print_success "Packages bootstrapped successfully."
     else
         print_error "Some of the packages failed to bootstrap."

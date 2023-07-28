@@ -21,8 +21,8 @@
 #   Exit code of the 'install.sh' script.
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 install_package() {
-    local -r dir="$1"
-    local -r os_name="$2"
+    local -r dir="${1}"
+    local -r os_name="${2}"
 
     local install_script=""
     local exit_code=0
@@ -30,21 +30,21 @@ install_package() {
     # First, search for the package in the specific
     # OS directory. If it's not found, search in the
     # common directory.
-    if [[ -f "$os_name/$dir/install.sh" ]]; then
-        install_script="$os_name/$dir/install.sh"
-    elif [[ -f "common/$dir/install.sh" ]]; then
-        install_script="common/$dir/install.sh"
+    if [[ -f "${os_name}/${dir}/install.sh" ]]; then
+        install_script="${os_name}/${dir}/install.sh"
+    elif [[ -f "common/${dir}/install.sh" ]]; then
+        install_script="common/${dir}/install.sh"
     else
-        print_warning "$dir 'install.sh' script not found."
+        print_warning "${dir} 'install.sh' script not found."
         return 1
     fi
 
     # Run the install script.
-    run_command "bash $install_script" \
-        "$LOG_DIR_NAME/$dir_install.log" \
-        "Installing $dir..." \
-        "$dir installed successfully." \
-        "Failed to install $dir." || exit_code=1
+    run_command "bash ${install_script}" \
+        "$LOG_DIR_NAME/${dir}_install.log" \
+        "Installing ${dir}..." \
+        "${dir} installed successfully." \
+        "Failed to install ${dir}." || exit_code=1
 
     return $exit_code
 }
