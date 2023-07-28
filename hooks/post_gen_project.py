@@ -19,15 +19,15 @@ def answer_to_bool(answer: str):
 
 # Main script
 # Create the 'common' directory.
-Path("common").mkdir()
+Path("common").mkdir(exist_ok=True)
 
 # Create system-specific directories and its
 # order files.
 for system, is_supported in SYSTEMS.items():
     if answer_to_bool(is_supported):
         # Create the dir.
-        Path(system).mkdir()
+        Path(system).mkdir(exist_ok=True)
 
         # Create the orders file.
         for order in ORDERS:
-            Path(f"{order}_order_{system}.txt").touch()
+            Path(f"{order}_order_{system}.txt").touch(exist_ok=True)
