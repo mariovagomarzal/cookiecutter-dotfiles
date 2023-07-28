@@ -209,14 +209,14 @@ run_command() {
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 run_command_with_loop() {
     local -r command="${1}"
-    local -r file="${2}"
+    local -r order_file="${2}"
     local -r os_name="${3}"
 
     local exit_code=0
 
     while read line; do
         eval "${command} ${line} ${os_name}" || exit_code=1
-    done < "${file}"
+    done < "${order_file}"
 
     return $exit_code
 }
