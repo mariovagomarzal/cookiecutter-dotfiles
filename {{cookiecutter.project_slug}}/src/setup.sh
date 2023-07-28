@@ -8,7 +8,7 @@
 
 # Constants
 export DOTFILES_DIR="{{ cookiecutter.dotfiles_dir }}"
-export LOG_DIR="$DOTFILES_DIR/log"
+export LOG_DIR_NAME="log"
 
 export GITHUB_REPO_NAME="{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}"
 export GITHUB_REPO_URL="https://github.com/$GITHUB_REPO_NAME"
@@ -244,6 +244,9 @@ setup () {
 
     # CD into the dotfiles directory.
     cd "$DOTFILES_DIR" || exit 1
+    # Create the 'log' directory.
+    mkdir -p "$LOG_DIR_NAME" || exit 1
+
     # Install the packages.
     print_subheader "Installing packages (ant others)"
     ask_confirmation "Do you want to install packages?"

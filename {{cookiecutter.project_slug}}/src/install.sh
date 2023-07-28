@@ -41,7 +41,7 @@ install_package() {
 
     # Run the install script.
     run_command "bash $install_script" \
-        "$LOG_DIR/$dir_install.log" \
+        "$LOG_DIR_NAME/$dir_install.log" \
         "Installing $dir..." \
         "$dir installed successfully." \
         "Failed to install $dir." || exit_code=1

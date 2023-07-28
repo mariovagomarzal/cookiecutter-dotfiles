@@ -41,7 +41,7 @@ setup_package() {
 
     # Run the setup script.
     run_command "bash $setup_script" \
-        "$LOG_DIR/$dir_setup.log" \
+        "$LOG_DIR_NAME/$dir_setup.log" \
         "Setting up $dir..." \
         "$dir setup successfully." \
         "Failed to setup $dir." || exit_code=1
@@ -97,7 +97,7 @@ symlink_package() {
         # Create the symlink (note that we make $file absolute
         # by prepending $DOTFILES_DIR).
         run_command "ln -sf $DOTFILES_DIR/$file $target_path" \
-            "$LOG_DIR/$dir_symlink.log" \
+            "$LOG_DIR_NAME/$dir_symlink.log" \
             "Symlinking to '$target_path'..." \
             "'$target_path' successfully symlinked." \
             "'$target_path' failed to symlink." || exit_code=1
