@@ -74,6 +74,7 @@ symlink_package() {
     local symlink_dir=""
     local exit_code=0
     local relative_path=""
+    local intermediate_dirs=""
     local target_path=""
 
     # First, search for the package in the specific
@@ -92,7 +93,11 @@ symlink_package() {
     for file in $(find "${symlink_dir}" -type f); do
         # Get the absolute path of the file of the target symlink.
         relative_path="${file#${symlink_dir}/}"
+        intermediate_dirs="${relative_path%/*}"
         target_path="$HOME/${relative_path}"
+
+        # Create the intermediate directories if they don't exist.
+        mkdir -p "$HOME/${intermediate_dirs}"
 
         # Create the symlink (note that we make $file absolute
         # by prepending $DOTFILES_DIR).
