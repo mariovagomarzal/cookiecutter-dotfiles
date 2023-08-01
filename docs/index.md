@@ -29,7 +29,7 @@ way, we can automate the process of setting up a new machine.
 
     Since many developers use dotfiles repositories, you can find many examples
     across the web. In GitHub, you can find a huge [list of dotfiles repositories](
-    https://dotfiles.github.io) from other users. We also recommend to take a
+    https://github.com/search?q=dotfiles&type=repositories) from other users. We also recommend to take a
     look at the "[Awesome dotfiles](https://github.com/webpro/awesome-dotfiles)",
     a curated list of dotfiles repositories and resources.
 
