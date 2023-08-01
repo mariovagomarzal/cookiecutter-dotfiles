@@ -1,4 +1,4 @@
-name: CI/CD tests
+name: CI tests
 
 on:
   push:
