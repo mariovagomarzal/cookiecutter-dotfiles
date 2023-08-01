@@ -1,4 +1,88 @@
 site_name: Cookiecutter Dotfiles
+site_url: https://mariovagomarzal.github.io/cookiecutter-dotfiles/
+site_author: Mario Vago Marzal
+site_description: >-
+  A cookiecutter template to easily create a dotfiles repository
 
+# Repository
+repo_name: mariovagomarzal/cookiecutter-dotfiles
+repo_url: https://github.com/mariovagomarzal/cookiecutter-dotfiles
+
+# Copyright
+copyright: Copyright &copy; 2023 Mario Vago Marzal
+
+# Configuration
 theme:
   name: material
+
+  # Color paletter
+  palette:
+    # Palette toggle for automatic mode
+    - media: "(prefers-color-scheme)"
+      primary: green
+      accent: deep green
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: green
+      accent: deep green
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: green
+      accent: deep green
+      toggle:
+        icon: material/brightness-4
+        name: Switch to system preference
+
+  # Favicon and logo
+  favicon: assets/favicon.ico
+  logo: assets/logo.png
+
+  features:
+    - navigation.instant
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.path
+    - navigation.indexes
+    - navigation.toc.follow
+    - navigation.top
+    - navigation.footer
+    - content.code.copy
+    - content.code.annotate
+
+  # Plugins
+  plugin:
+    - search
+
+# Markdown extensions
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - attr_list
+  - md_in_html
+
+# Page tree
+nav:
+  - Home: index.md
+  - Usage: usage.md
+  - Contributing:
+    - contributing/contributing.md
+    - Create a reproduction: contributing/reproduction.md
+    - Reporting a bug: contributing/bug-report.md
+    - Requesting a feature: contributing/feature-request.md
+    - Submitting a pull request: contributing/pull-request.md
+  - Changelog: changelog.md
+  - License: license-info.md
