@@ -62,9 +62,9 @@ your template repository must be hosted in a remote Git repository like GitHub.
 
     For the moment, the template only supports repositories hosted in GitHub.
     If you want to use another remote Git repository, you can contribute to the
-    project. Please, refer to the [Contributing](contributing/contributing.md) section for more
+    project. Please, refer to the [Contributing](contributing/) section for more
     information.
 
-Refer to the [Usage](usage.md) section to learn how to use this template. You can
-also check the [Full example](full-example.md) section to see a full example of
+Refer to the [Usage](usage/) section to learn how to use this template. You can
+also check the [Full example](usage/full-example.md) section to see a full example of
 how to use this template.

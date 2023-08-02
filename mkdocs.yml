@@ -59,6 +59,7 @@ theme:
     - navigation.footer
     - content.code.copy
     - content.code.annotate
+    - content.tabs.link
 
   # Plugins
   plugin:
@@ -66,9 +67,15 @@ theme:
 
 # Markdown extensions
 markdown_extensions:
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
   - admonition
   - pymdownx.details
-  - pymdownx.superfences
   - pymdownx.tabbed:
       alternate_style: true
   - attr_list
@@ -77,9 +84,11 @@ markdown_extensions:
 # Page tree
 nav:
   - Home: index.md
-  - Usage: usage.md
+  - Usage:
+    - usage/index.md
+    - Full guided example: usage/full-example.md
   - Contributing:
-    - contributing/contributing.md
+    - contributing/index.md
     - Create a reproduction: contributing/reproduction.md
     - Reporting a bug: contributing/bug-report.md
     - Requesting a feature: contributing/feature-request.md
