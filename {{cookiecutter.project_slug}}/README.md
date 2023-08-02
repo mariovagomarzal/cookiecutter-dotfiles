@@ -4,7 +4,7 @@
 To setup the dotfiles, run the following command in the terminal:
 
 ```bash
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/{{ cookiecutter.github_username }}/{{ cookiecutter.github_repo }}/main/src/setup.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/{{ cookiecutter.github_username }}/{{ cookiecutter.github_repo }}/{{ cookiecutter.default_branch }}/src/setup.sh)"
 ```
 
 The setup process will:
