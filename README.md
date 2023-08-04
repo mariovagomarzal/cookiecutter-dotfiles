@@ -1,11 +1,11 @@
-# Cookiecutter Dotfiles
+# cookiecutter-dotfiles <small>v0.1.0</small>
 
 Cookiecutter dotfiles is a template powered by [Cookiecutter](https://github.com/cookiecutter/cookiecutter)
 to create a custom and modular dotfiles repository.
 
 For a detailed explanation of the template, please refer to the [documentation](https://mariovagomarzal.github.io/cookiecutter-dotfiles/).
 
-## Usage
+## Quick start
 
 To use the template, you need to have [Cookiecutter](https://github.com/cookiecutter/cookiecutter)
 installed. For that, if you already have Python installed, you can run:
@@ -25,7 +25,6 @@ You will be prompted to enter some information about your new dotfiles repositor
 Here's an example of the output:
 
 ```bash
-$ cookiecutter -o ~/Projects gh:mariovagomarzal/cookiecutter-dotfiles
 project_slug [dotfiles]:
 author [Your Name]: John Doe
 github_username [your_github_username]: johndoe
