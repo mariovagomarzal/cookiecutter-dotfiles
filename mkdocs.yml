@@ -17,14 +17,6 @@ theme:
 
   # Color paletter
   palette:
-    # Palette toggle for automatic mode
-    - media: "(prefers-color-scheme)"
-      primary: green
-      accent: deep green
-      toggle:
-        icon: material/brightness-auto
-        name: Switch to light mode
-
     # Palette toggle for light mode
     - media: "(prefers-color-scheme: light)"
       scheme: default
@@ -49,12 +41,11 @@ theme:
 
   features:
     - navigation.instant
+    - navigation.tracking
     - navigation.tabs
     - navigation.tabs.sticky
     - navigation.sections
-    - navigation.path
-    - navigation.indexes
-    - navigation.toc.follow
+    - toc.integrate
     - navigation.top
     - navigation.footer
     - content.code.copy
@@ -84,14 +75,7 @@ markdown_extensions:
 # Page tree
 nav:
   - Home: index.md
-  - Usage:
-    - usage/index.md
-    - Full guided example: usage/full-example.md
-  - Contributing:
-    - contributing/index.md
-    - Create a reproduction: contributing/reproduction.md
-    - Reporting a bug: contributing/bug-report.md
-    - Requesting a feature: contributing/feature-request.md
-    - Submitting a pull request: contributing/pull-request.md
-  - Changelog: changelog.md
+  - Usage: usage.md
+  - Contributing: contributing-info.md
+  - Changelog: changelog-info.md
   - License: license-info.md

@@ -170,7 +170,7 @@ With the default options, Cookiecutter will create a new directory with the foll
 
 === "Default options"
 
-    ``` { .no-copy }
+    ``` { .bash .no-copy }
     dotfiles/
     ├── LICENSE
     ├── README.md
@@ -190,7 +190,7 @@ With the default options, Cookiecutter will create a new directory with the foll
 
 === "macOS"
 
-    ``` { .no-copy }
+    ``` { .bash .no-copy }
     dotfiles/
     ├── LICENSE
     ├── README.md
@@ -207,7 +207,7 @@ With the default options, Cookiecutter will create a new directory with the foll
 
 === "Linux"
 
-    ``` { .no-copy }
+    ``` { .bash .no-copy }
     dotfiles/
     ├── LICENSE
     ├── README.md
@@ -356,9 +356,6 @@ of `0` if the setup was successful, or a different exit status if the setup fail
 output of this script is also written to a log file inside the `logs` directory. The name
 of the log file will be of the form `<my_package>_setup.log`.
 
-Look at the [Full guided example](full-example.md) section for a more detailed example
-of a `setup.sh` script.
-
 ### The `symlinks` directory
 
 The `symlinks` directory contains the files that have to be linked to the system. This
@@ -465,5 +462,5 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/<github_username>/<githu
 
 !!! info "Public repository"
 
-    Make sure your repository is public. Otherwise, you will not be able to setup
-    your dotfiles in other machines.
+    For the moment, the template is designed to work with public repositories. If you
+    want to use a private repository, you can [contribute](../contributing/) to the project.

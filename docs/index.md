@@ -1,5 +1,5 @@
 ---
-hide:
+show:
     - navigation
 ---
 
@@ -65,6 +65,4 @@ your template repository must be hosted in a remote Git repository like GitHub.
     project. Please, refer to the [Contributing](contributing/) section for more
     information.
 
-Refer to the [Usage](usage/) section to learn how to use this template. You can
-also check the [Full example](usage/full-example.md) section to see a full example of
-how to use this template.
+Refer to the [Usage](usage.md) section to learn how to use this template.
