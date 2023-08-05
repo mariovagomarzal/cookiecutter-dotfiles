@@ -463,4 +463,4 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/<github_username>/<githu
 !!! info "Public repository"
 
     For the moment, the template is designed to work with public repositories. If you
-    want to use a private repository, you can [contribute](../contributing/) to the project.
+    want to use a private repository, you can [contribute](contributing-info.md) to the project.
