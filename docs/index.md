@@ -1,8 +1,3 @@
----
-show:
-    - navigation
----
-
 # Cookiecutter Dotfiles
 
 Cookiecutter Dotfiles is a template for creating your own dotfiles repository
