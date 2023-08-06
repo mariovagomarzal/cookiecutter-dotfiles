@@ -1,3 +1,7 @@
+<div align="center">
+    <img src=".github/assets/banner.png">
+</div>
+
 # cookiecutter-dotfiles <small>v0.1.0</small>
 
 Cookiecutter dotfiles is a template powered by [Cookiecutter](https://github.com/cookiecutter/cookiecutter)
