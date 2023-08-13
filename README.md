@@ -1,6 +1,6 @@
-<div align="center">
-    <img src=".github/assets/banner.png">
-</div>
+<h1 align="center">
+    <img alt="Cookiecutter dotfiles' banner" src=".github/assets/banner.png">
+</h1>
 
 # cookiecutter-dotfiles <small>v0.1.0</small>
 
