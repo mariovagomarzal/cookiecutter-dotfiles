@@ -1,0 +1,54 @@
+name: Request a feature
+description: Request a feature to be added to the project
+title: "[Feature]: "
+labels: ["feature"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to request a feature to be added to the project.
+        Please fill in the following information to help us understand your request. If you have any doubts, please
+        refer to the [contributing section](https://mariovagomarzal.github.io/cookiecutter-dotfiles/contributing)
+        in our documentation.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: A clear and concise description of what the feature is.
+    validations:
+      required: true
+
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivation
+      description: >-
+        Please provide a clear and concise description of why this feature is needed.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives
+      description: >-
+        Please provide a clear and concise description of any alternative solutions or features you've considered.
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional context
+      description: >-
+        Please provide any other context or screenshots about the feature request here.
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: >-
+        By submitting this issue, you agree to abide by our [Code of Conduct](https://github.com/mariovagomarzal/cookiecutter-dotfiles/CODE_OF_CONDUCT.md).
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true

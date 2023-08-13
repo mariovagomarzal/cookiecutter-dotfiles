@@ -1,0 +1,83 @@
+name: Bug report with template generation
+description: Report a bug related to the generation of the cookiecutter template
+title: "[Bug]: "
+labels: ["bug", "template-generation"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to report a bug related to the generation of the cookiecutter template.
+        Please fill in the following information to help us reproduce the issue. If you have any doubts, please
+        refer to the [contributing section](https://mariovagomarzal.github.io/cookiecutter-dotfiles/contributing)
+        in our documentation.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: A clear and concise description of what the bug is.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected behavior
+      description: A clear and concise description of what you expected to happen.
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: Actual behavior
+      description: A clear and concise description of what actually happened.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps to reproduce
+      description: >-
+        Please provide the steps to reproduce the behavior. If applicable, please provide a minimal example
+        that reproduces the issue.
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: If applicable, add screenshots to help explain your problem.
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: >-
+        Please provide the following information about your environment:
+        - OS: [e.g. macOS 10.15.7]
+        - Python version: [e.g. 3.8.5]
+        - Cookiecutter version: [e.g. 1.7.2]
+        - Cookiecutter template version: [e.g. 0.1.0]
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-information
+    attributes:
+      label: Additional information
+      description: >-
+        Please provide any additional information that might help us reproduce the issue.
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: >-
+        By submitting this issue, you agree to abide by our [Code of Conduct](https://github.com/mariovagomarzal/cookiecutter-dotfiles/CODE_OF_CONDUCT.md).
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true
