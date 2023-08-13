@@ -6,7 +6,7 @@ powered by [Cookiecutter](https://github.com/cookiecutter/cookiecutter).
 ## What is a dotfiles repository?
 
 Many programs (specially the ones related with software development) store
-their configuration plain text files under the user's home directory. These
+their configuration in plain text files under the user's home directory. These
 files are called dotfiles because their names start with a dot, `.`, to indicate
 most of the Unix operating systems that they are hidden files.
 

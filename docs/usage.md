@@ -154,7 +154,7 @@ Here's an example of the output of the command:
     Linux, or both.
 
     The operating system is automatically detected by the setup process.
-    Is you want to know which operating system will be used on your machine,
+    If you want to know which operating system will be used on your machine,
     you can run the following command in your terminal:
 
     ``` bash
@@ -227,7 +227,7 @@ create your own dotfiles repository.
 
 ## Preparing your dotfiles
 
-This dotfiles repository is based on a modular structure. Each module consists of a directory inside the `common`, `linux` or `macos` directory. Inside this custom directory (which we will call _module_ or _package_) you can add a `install.sh` script, a `bootstrap.sh` script and/or a `symlinks` directory. We will explain the purpose of each of these files in the following sections.
+This dotfiles repository is based on a modular structure. Each module consists of a directory inside the `common`, `linux` or `macos` directory. Inside this custom directory (which we will call _module_ or _package_) you can add a `install.sh` script, a `setup.sh` script and/or a `symlinks` directory. We will explain the purpose of each of these files in the following sections.
 
 If a package has different contents for macOS and Linux, you should add it either to the `macos` or `linux` directory, respectively. If a package has the same contents indistinctly for macOS and Linux, you can add it to the `common` directory. When setting up a new system, the process will search for the package in the `macos` or `linux` directory first, and if it doesn't find it, it will search for it in the `common` directory.
 
@@ -251,7 +251,7 @@ The `setup.sh` script will do the following:
     them, reporting the result of each installation and writing the logs to specific
     files under a `logs` directory inside the dotfiles directory.
 4. A similar process is done for the `setup.sh` scripts. The difference is that,
-    apart from running the scripts, it will also link the files in the `symlinks`
+    apart from running the scripts, it will also link the files in the `symlink`
     directory to the right place in the system (we will explain how to do this in
     the next sections).
 
@@ -270,7 +270,7 @@ macOS and Linux. So, we will have to create a directory called `my_package` insi
 !!! info "Not all files are required"
 
     Note that not all the packages need to have all the files. For example, if you
-    don't need to create symlinks, you don't need to create a `symlinks` directory.
+    don't need to create symlinks, you don't need to create a `symlink` directory.
     We will talk about how to skip the execution of the scripts in the next sections.
 
 ### The `install.sh` script
@@ -348,7 +348,7 @@ the installation of all the packages. This script should contain the necessary c
 to configure the package after it has been installed. For example, you can use this script
 to install plugins for a specific package or to configure the package to your needs.
 
-Do not use this script to link files to the system. This should be done in the `symlinks`
+Do not use this script to link files to the system. This should be done in the `symlink`
 directory, as we will see in the next section.
 
 Similarly to the `install.sh` script, the `setup.sh` script should return an exit status
@@ -356,27 +356,27 @@ of `0` if the setup was successful, or a different exit status if the setup fail
 output of this script is also written to a log file inside the `logs` directory. The name
 of the log file will be of the form `<my_package>_setup.log`.
 
-### The `symlinks` directory
+### The `symlink` directory
 
-The `symlinks` directory contains the files that have to be linked to the system. This
+The `symlink` directory contains the files that have to be linked to the system. This
 process is done just after the `setup.sh` script of the package is executed. The files
 in this folder will be linked to the same path in the system relative to the `$HOME`
 directory. For example, if you have a file calle `.my_file` in the `symlinks` directory,
 it will be linked to `$HOME/.my_file`.
 
-But there's more. You can also create directories inside the `symlinks` directory and put
+But there's more. You can also create directories inside the `symlink` directory and put
 files inside them. This files will be linked to the same path in the system relative to
 the `$HOME` directory, but inside the directory you created. Intermediately directories
 will be created if they don't exist.
 
 Let's see a brief example:
 
-???+ example "Example of the `symlinks` directory"
+???+ example "Example of the `symlink` directory"
 
     Suppose you have the following directory structure under the `my_package` directory:
 
     ``` { .no-copy }
-    symlinks/
+    symlink/
     ├── .my_file
     └── my_directory
         └── my_other_file
@@ -396,9 +396,9 @@ Let's see a brief example:
 
         ``` { .no-copy }
         $HOME/
-        ├── .my_file -> /path/to/dotfiles/my_package/symlinks/.my_file
+        ├── .my_file -> /path/to/dotfiles/my_package/symlink/.my_file
         ├── my_directory
-        │    └── my_other_file -> /path/to/dotfiles/my_package/symlinks/my_directory/my_other_file
+        │    └── my_other_file -> /path/to/dotfiles/my_package/symlink/my_directory/my_other_file
         └── ...
         ```
 
