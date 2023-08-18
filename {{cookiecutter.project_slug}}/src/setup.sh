@@ -198,6 +198,27 @@ clone_repository() {
 }
 
 
+# ┌─────────────────────────┐
+# │ Run order file function │
+# └─────────────────────────┘
+
+# -
+# Run the order file of a given OS.
+# Arguments:
+#   $1: OS name.
+# Returns:
+#   Exit with error >0 if one of the packages fails
+#   to install or bootstrap. Otherwise, exit with
+#   success 0.
+# -
+run_order_file() {
+    local -r os_name="${1}"
+    local -r order_file="${os_name}_order.sh"
+
+    source "${order_file}" || return 1
+}
+
+
 # ┌────────────────┐
 # │ Setup function │
 # └────────────────┘
@@ -211,11 +232,6 @@ clone_repository() {
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 setup () {
     local -r os_name=$(get_os_name)
-
-    local exit_code_installs=0
-    local bootstrap_packages=""
-    local exit_code_bootstrap=0
-    local exit_code=0
 
     # Check the OS is supported.
     if [[ "${os_name}" == "unknown" ]]; then
@@ -231,6 +247,7 @@ setup () {
     # Setup the dotfiles.
     print_header "Setting up the dotfiles for ${os_name}"
 
+    print_subheader "Preparing the machine for setup"
     # Install Git (or Xcode Command Line Tools on macOS)
     # if needed.
     if [[ "${os_name}" == "macos" ]]; then
@@ -247,52 +264,15 @@ setup () {
     # Create the 'log' directory.
     mkdir -p "$LOG_DIR_NAME" || exit 1
 
-    # Install the packages.
-    print_subheader "Installing packages (ant others)"
-    ask_confirmation "Do you want to install packages?"
-    if [[ $? -eq 0 ]]; then
-        source "src/install.sh"
-        install_packages "${os_name}" || exit_code_installs=1
-    else
-        print_info "Skipping installations."
-    fi
+    print_subheader "Install and bootstrap process"
+    # Source the 'install.sh' and 'bootstrap.sh' scripts.
+    source "src/install.sh" || exit 1
+    source "src/bootstrap.sh" || exit 1
 
-    # Bootstrap the dotfiles.
-    print_subheader "Bootstrapping packages (and others)"
-    # Check if exit_code_installs is different from 0.
-    if [[ ${exit_code_installs} -ne 0 ]]; then
-        print_info "Some of the packages failed to install"
-        ask_confirmation "Do you want to bootstrap packages anyway?"
-        bootstrap_packages=$?
-    else
-        ask_confirmation "Do you want to bootstrap packages?"
-        bootstrap_packages=$?
-    fi
+    # Run the order file of the current OS.
+    run_order_file "$os_name" || exit 1
 
-    if [[ ${bootstrap_packages} -eq 0 ]]; then
-        source "src/bootstrap.sh"
-        bootstrap_packages "$os_name" || exit_code_bootstrap=1
-    else
-        print_info "Skipping bootstrap."
-    fi
-    
-    # Summarize the setup.
-    print_header "Setup summary"
-    if [[ ${exit_code_installs} -eq 0 ]]; then
-        print_success "Packages installed successfully."
-    else
-        print_error "Some of the packages failed to install."
-        exit_code=1
-    fi
-
-    if [[ ${exit_code_bootstrap} -eq 0 ]]; then
-        print_success "Packages bootstrapped successfully."
-    else
-        print_error "Some of the packages failed to bootstrap."
-        exit_code=1
-    fi
-
-    exit $exit_code
+    exit 0
 }
 
 # Run the setup.
