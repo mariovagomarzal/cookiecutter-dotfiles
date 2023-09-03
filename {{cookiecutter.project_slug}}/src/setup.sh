@@ -48,13 +48,14 @@ get_os_name() {
 # │ Sudo authentication │
 # └─────────────────────┘
 
-# - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 # Ask for sudo permissions upfront. 
 # Arguments:
 #   None.
 # Returns:
-#   None. Exit with error if `sudo` validation fails.
-# - - - - - - - - - - - - - - - - - - - - - - - - - - -
+#   If the sudo authentication fails, return 1. Otherwise,
+#   return 0.
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ask_for_sudo() {
     # Clear any previous sudo permissions.
     sudo -k
@@ -68,6 +69,7 @@ ask_for_sudo() {
             kill -0 "$$" || exit
         done &> /dev/null &
         printf "Sudo permissions granted.\n\n"
+        return 0
     else
         printf "Sudo permissions are required to continue.\n"
         return 1
@@ -79,14 +81,15 @@ ask_for_sudo() {
 # │ Load utils │
 # └────────────┘
 
-# - - - - - - - - - - - - - - - - - - - - - -
+# - - - - - - - - - - - - - - - - - - - - - - -
 # Load utils from GitHub. From now on, the
 # `utils.sh` file is available.
 # Arguments:
 #   None.
 # Returns:
-#   None. Exit with error if `curl` fails.
-# - - - - - - - - - - - - - - - - - - - - - -
+#   If the utils file fails to load, return 1.
+#   Otherwise, return 0.
+# - - - - - - - - - - - - - - - - - - - - - - -
 load_utils() {
     local -r utils_file="$DOTFILES_DIR/src/utils.sh"
     local -r utils_url="$GITHUB_REPO_RAW_URL/{{ cookiecutter.default_branch }}/src/utils.sh"
@@ -102,6 +105,8 @@ load_utils() {
     else
         source "${utils_file}"
     fi
+
+    return 0
 }
 
 
@@ -109,13 +114,14 @@ load_utils() {
 # │ Git installation │
 # └──────────────────┘
 
-# - - - - - - - - - - - - - - - - - - - - - - - - -
+# - - - - - - - - - - - - - - - - - - - - - - - -
 # Install Git on Linux.
 # Arguments:
 #   None.
 # Returns:
-#   None. Exit with error if installation fails.
-# - - - - - - - - - - - - - - - - - - - - - - - - -
+#   If Git fails to install, return 1. Otherwise,
+#   return 0.
+# - - - - - - - - - - - - - - - - - - - - - - - -
 install_git() {
     if ! command -v git &> /dev/null; then
         ask_confirmation "Do you want to install Git?"
@@ -137,6 +143,8 @@ install_git() {
     else
         print_success "Git is already installed."
     fi
+
+    return 0
 }
 
 # - - - - - - - - - - - - - - - - - - - - - - - -
@@ -144,7 +152,8 @@ install_git() {
 # Arguments:
 #   None.
 # Returns:
-#   None. Exit with error if installation fails.
+#   If Xcode Command Line Tools fails to install,
+#   return 1. Otherwise, return 0.
 # - - - - - - - - - - - - - - - - - - - - - - - -
 install_xcode_command_line_tools() {
     if [[ ! -d "/Library/Developer/CommandLineTools" ]]; then
@@ -162,6 +171,8 @@ install_xcode_command_line_tools() {
     else
         print_success "Xcode Command Line Tools are already installed."
     fi
+
+    return 0
 }
 
 
@@ -169,13 +180,14 @@ install_xcode_command_line_tools() {
 # │ Clone repository │
 # └──────────────────┘
 
-# - - - - - - - - - - - - - - - - - - - - -
+# - - - - - - - - - - - - - - - - - - - - - - -
 # Clone the repository if needed.
 # Arguments:
 #   None.
 # Returns:
-#   None. Exit with error if `git` fails.
-# - - - - - - - - - - - - - - - - - - - - -
+#   If the repository fails to clone, return 1.
+#   Otherwise, return 0.
+# - - - - - - - - - - - - - - - - - - - - - - -
 clone_repository() {
     local -r dotfiles_dir="$DOTFILES_DIR"
     local -r dotfiles_url="$GITHUB_REPO_URL"
@@ -195,6 +207,8 @@ clone_repository() {
     else
         print_success "Repository already cloned."
     fi
+
+    return 0
 }
 
 
@@ -202,15 +216,14 @@ clone_repository() {
 # │ Run order file function │
 # └─────────────────────────┘
 
-# -
+# - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Run the order file of a given OS.
 # Arguments:
 #   $1: OS name.
 # Returns:
-#   Exit with error >0 if one of the packages fails
-#   to install or bootstrap. Otherwise, exit with
-#   success 0.
-# -
+#   If the order file fails to run, return 1.
+#   Otherwise, return 0.
+# - - - - - - - - - - - - - - - - - - - - - - - - - -
 run_order_file() {
     local -r os_name="${1}"
     local -r order_file="${os_name}_order.sh"
@@ -223,13 +236,13 @@ run_order_file() {
 # │ Setup function │
 # └────────────────┘
 
-# - - - - - - - - - - - - - - - - - - - - - - - - - -
+# - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Setup the dotfiles.
 # Arguments:
 #   None.
 # Returns:
-#   None. Exit with error if something goes wrong.
-# - - - - - - - - - - - - - - - - - - - - - - - - - -
+#   If the setup fails, return 1. Otherwise, return 0.
+# - - - - - - - - - - - - - - - - - - - - - - - - - - -
 setup () {
     local -r os_name=$(get_os_name)
 
