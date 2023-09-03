@@ -6,10 +6,6 @@ SYSTEMS = {
     "macos": "{{ cookiecutter.macos_support }}",
     "linux": "{{ cookiecutter.linux_support }}",
 }
-ORDERS = {
-    "install",
-    "bootstrap",
-}
 
 
 # Functions
@@ -28,6 +24,5 @@ for system, is_supported in SYSTEMS.items():
         # Create the dir.
         Path(system).mkdir(exist_ok=True)
 
-        # Create the orders file.
-        for order in ORDERS:
-            Path(f"{order}_order_{system}.txt").touch(exist_ok=True)
+        # Create the order file.
+        Path(f"{system}_order.sh").touch(exist_ok=True)
