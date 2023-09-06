@@ -48,25 +48,3 @@ install_package() {
 
     return $exit_code
 }
-
-# - - - - - - - - - - - - - - - - - - - - - - -
-# Install all the packages listed in the
-# install order file.
-# Arguments:
-#   $1: OS name.
-# Returns:
-#    If any of the packages fails to install,
-#    the function will return 1. Otherwise,
-#    it will return 0.
-# - - - - - - - - - - - - - - - - - - - - - - -
-install_packages() {
-    local -r os_name="${1}"
-
-    local exit_code=0
-
-    run_command_with_loop "install_package" \
-        "install_order_${os_name}.txt" \
-        "${os_name}" || exit_code=1
-
-    return $exit_code
-}

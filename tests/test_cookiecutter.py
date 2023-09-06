@@ -35,8 +35,7 @@ def test_cookiecutter_no_context(cookies):
     assert (path / "common").is_dir()
     for system in ["macos", "linux"]:
         assert (path / system).is_dir()
-        assert (path / f"install_order_{system}.txt").is_file()
-        assert (path / f"bootstrap_order_{system}.txt").is_file()
+        assert (path / f"{system}_order.sh").is_file()
 
 # Bake with extra context
 def test_cookiecutter_context(cookies, extra_context):
@@ -62,11 +61,9 @@ def test_cookiecutter_context(cookies, extra_context):
 
     # Check if the contents exist for macos.
     assert (path / "macos").is_dir()
-    assert (path / "install_order_macos.txt").is_file()
-    assert (path / "bootstrap_order_macos.txt").is_file()
+    assert (path / "macos_order.sh").is_file()
 
     # Check if the contents exist for linux
     # (should not exist because linux_support is set to "no").
     assert not (path / "linux").is_dir()
-    assert not (path / "install_order_linux.txt").is_file()
-    assert not (path / "bootstrap_order_linux.txt").is_file()
+    assert not (path / "linux_order.sh").is_file()

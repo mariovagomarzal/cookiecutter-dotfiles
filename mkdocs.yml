@@ -71,6 +71,9 @@ markdown_extensions:
       alternate_style: true
   - attr_list
   - md_in_html
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
 
 # Page tree
 nav:

@@ -1,3 +1,8 @@
+cookiecutter-dotfiles-0.2.0 (2023-09-06)
+
+    * Remove specific `intall` and `bootstrap` scripts and use a unique order file
+
+
 cookiecutter-dotfiles-0.1.0 (2023-08-04)
 
     * Initial release

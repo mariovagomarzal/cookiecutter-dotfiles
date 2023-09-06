@@ -190,33 +190,3 @@ run_command() {
 
     return $exit_code
 }
-
-
-# ┌───────────────────────────────────────────┐
-# │ Auxiliary install and bootstrap functions │
-# └───────────────────────────────────────────┘
-
-# - - - - - - - - - - - - - - - - - - - - - - - - - -
-# Loop through the lines of a file and run a command
-# using each line as a an argument.
-# Arguments:
-#   $1: Command to run.
-#   $2: File to read lines from.
-#   $3: OS name.
-# Returns:
-#   If one of the commands fails, the function will
-#   return the 1. Otherwise, it will return 0.
-# - - - - - - - - - - - - - - - - - - - - - - - - - -
-run_command_with_loop() {
-    local -r command="${1}"
-    local -r order_file="${2}"
-    local -r os_name="${3}"
-
-    local exit_code=0
-
-    while read line; do
-        eval "${command} ${line} ${os_name}" || exit_code=1
-    done < "${order_file}"
-
-    return $exit_code
-}

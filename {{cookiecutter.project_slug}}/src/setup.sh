@@ -48,13 +48,14 @@ get_os_name() {
 # │ Sudo authentication │
 # └─────────────────────┘
 
-# - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 # Ask for sudo permissions upfront. 
 # Arguments:
 #   None.
 # Returns:
-#   None. Exit with error if `sudo` validation fails.
-# - - - - - - - - - - - - - - - - - - - - - - - - - - -
+#   If the sudo authentication fails, return 1. Otherwise,
+#   return 0.
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ask_for_sudo() {
     # Clear any previous sudo permissions.
     sudo -k
@@ -68,6 +69,7 @@ ask_for_sudo() {
             kill -0 "$$" || exit
         done &> /dev/null &
         printf "Sudo permissions granted.\n\n"
+        return 0
     else
         printf "Sudo permissions are required to continue.\n"
         return 1
@@ -79,14 +81,15 @@ ask_for_sudo() {
 # │ Load utils │
 # └────────────┘
 
-# - - - - - - - - - - - - - - - - - - - - - -
+# - - - - - - - - - - - - - - - - - - - - - - -
 # Load utils from GitHub. From now on, the
 # `utils.sh` file is available.
 # Arguments:
 #   None.
 # Returns:
-#   None. Exit with error if `curl` fails.
-# - - - - - - - - - - - - - - - - - - - - - -
+#   If the utils file fails to load, return 1.
+#   Otherwise, return 0.
+# - - - - - - - - - - - - - - - - - - - - - - -
 load_utils() {
     local -r utils_file="$DOTFILES_DIR/src/utils.sh"
     local -r utils_url="$GITHUB_REPO_RAW_URL/{{ cookiecutter.default_branch }}/src/utils.sh"
@@ -102,6 +105,8 @@ load_utils() {
     else
         source "${utils_file}"
     fi
+
+    return 0
 }
 
 
@@ -109,13 +114,14 @@ load_utils() {
 # │ Git installation │
 # └──────────────────┘
 
-# - - - - - - - - - - - - - - - - - - - - - - - - -
+# - - - - - - - - - - - - - - - - - - - - - - - -
 # Install Git on Linux.
 # Arguments:
 #   None.
 # Returns:
-#   None. Exit with error if installation fails.
-# - - - - - - - - - - - - - - - - - - - - - - - - -
+#   If Git fails to install, return 1. Otherwise,
+#   return 0.
+# - - - - - - - - - - - - - - - - - - - - - - - -
 install_git() {
     if ! command -v git &> /dev/null; then
         ask_confirmation "Do you want to install Git?"
@@ -137,6 +143,8 @@ install_git() {
     else
         print_success "Git is already installed."
     fi
+
+    return 0
 }
 
 # - - - - - - - - - - - - - - - - - - - - - - - -
@@ -144,7 +152,8 @@ install_git() {
 # Arguments:
 #   None.
 # Returns:
-#   None. Exit with error if installation fails.
+#   If Xcode Command Line Tools fails to install,
+#   return 1. Otherwise, return 0.
 # - - - - - - - - - - - - - - - - - - - - - - - -
 install_xcode_command_line_tools() {
     if [[ ! -d "/Library/Developer/CommandLineTools" ]]; then
@@ -162,6 +171,8 @@ install_xcode_command_line_tools() {
     else
         print_success "Xcode Command Line Tools are already installed."
     fi
+
+    return 0
 }
 
 
@@ -169,13 +180,14 @@ install_xcode_command_line_tools() {
 # │ Clone repository │
 # └──────────────────┘
 
-# - - - - - - - - - - - - - - - - - - - - -
+# - - - - - - - - - - - - - - - - - - - - - - -
 # Clone the repository if needed.
 # Arguments:
 #   None.
 # Returns:
-#   None. Exit with error if `git` fails.
-# - - - - - - - - - - - - - - - - - - - - -
+#   If the repository fails to clone, return 1.
+#   Otherwise, return 0.
+# - - - - - - - - - - - - - - - - - - - - - - -
 clone_repository() {
     local -r dotfiles_dir="$DOTFILES_DIR"
     local -r dotfiles_url="$GITHUB_REPO_URL"
@@ -195,6 +207,28 @@ clone_repository() {
     else
         print_success "Repository already cloned."
     fi
+
+    return 0
+}
+
+
+# ┌─────────────────────────┐
+# │ Run order file function │
+# └─────────────────────────┘
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Run the order file of a given OS.
+# Arguments:
+#   $1: OS name.
+# Returns:
+#   If the order file fails to run, return 1.
+#   Otherwise, return 0.
+# - - - - - - - - - - - - - - - - - - - - - - - - - -
+run_order_file() {
+    local -r os_name="${1}"
+    local -r order_file="${os_name}_order.sh"
+
+    source "${order_file}" || return 1
 }
 
 
@@ -202,20 +236,15 @@ clone_repository() {
 # │ Setup function │
 # └────────────────┘
 
-# - - - - - - - - - - - - - - - - - - - - - - - - - -
+# - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Setup the dotfiles.
 # Arguments:
 #   None.
 # Returns:
-#   None. Exit with error if something goes wrong.
-# - - - - - - - - - - - - - - - - - - - - - - - - - -
+#   If the setup fails, return 1. Otherwise, return 0.
+# - - - - - - - - - - - - - - - - - - - - - - - - - - -
 setup () {
     local -r os_name=$(get_os_name)
-
-    local exit_code_installs=0
-    local bootstrap_packages=""
-    local exit_code_bootstrap=0
-    local exit_code=0
 
     # Check the OS is supported.
     if [[ "${os_name}" == "unknown" ]]; then
@@ -231,6 +260,7 @@ setup () {
     # Setup the dotfiles.
     print_header "Setting up the dotfiles for ${os_name}"
 
+    print_subheader "Preparing the machine for setup"
     # Install Git (or Xcode Command Line Tools on macOS)
     # if needed.
     if [[ "${os_name}" == "macos" ]]; then
@@ -247,52 +277,15 @@ setup () {
     # Create the 'log' directory.
     mkdir -p "$LOG_DIR_NAME" || exit 1
 
-    # Install the packages.
-    print_subheader "Installing packages (ant others)"
-    ask_confirmation "Do you want to install packages?"
-    if [[ $? -eq 0 ]]; then
-        source "src/install.sh"
-        install_packages "${os_name}" || exit_code_installs=1
-    else
-        print_info "Skipping installations."
-    fi
+    print_subheader "Install and bootstrap process"
+    # Source the 'install.sh' and 'bootstrap.sh' scripts.
+    source "src/install.sh" || exit 1
+    source "src/bootstrap.sh" || exit 1
 
-    # Bootstrap the dotfiles.
-    print_subheader "Bootstrapping packages (and others)"
-    # Check if exit_code_installs is different from 0.
-    if [[ ${exit_code_installs} -ne 0 ]]; then
-        print_info "Some of the packages failed to install"
-        ask_confirmation "Do you want to bootstrap packages anyway?"
-        bootstrap_packages=$?
-    else
-        ask_confirmation "Do you want to bootstrap packages?"
-        bootstrap_packages=$?
-    fi
+    # Run the order file of the current OS.
+    run_order_file "$os_name" || exit 1
 
-    if [[ ${bootstrap_packages} -eq 0 ]]; then
-        source "src/bootstrap.sh"
-        bootstrap_packages "$os_name" || exit_code_bootstrap=1
-    else
-        print_info "Skipping bootstrap."
-    fi
-    
-    # Summarize the setup.
-    print_header "Setup summary"
-    if [[ ${exit_code_installs} -eq 0 ]]; then
-        print_success "Packages installed successfully."
-    else
-        print_error "Some of the packages failed to install."
-        exit_code=1
-    fi
-
-    if [[ ${exit_code_bootstrap} -eq 0 ]]; then
-        print_success "Packages bootstrapped successfully."
-    else
-        print_error "Some of the packages failed to bootstrap."
-        exit_code=1
-    fi
-
-    exit $exit_code
+    exit 0
 }
 
 # Run the setup.

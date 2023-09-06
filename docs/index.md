@@ -14,7 +14,7 @@ A dotfiles repository is a Git repository that contains all the dotfiles of a
 user so that they can be easily copied or linked to their target location.
 This repository can be used to keep track of the changes made to the
 dotfiles and to share them across different machines using remote Git
-repositories like [GitHub](https://github.com).
+repositories services like [GitHub](https://github.com).
 
 We can extend the concept of dotfiles to include other basic scripts which can
 be used to install and configure the desire software in a new machine. In this
@@ -23,10 +23,8 @@ way, we can automate the process of setting up a new machine.
 !!! tip "Explore other dotfiles repositories"
 
     Since many developers use dotfiles repositories, you can find many examples
-    across the web. In GitHub, you can find a huge [list of dotfiles repositories](
-    https://github.com/search?q=dotfiles&type=repositories) from other users. We also recommend to take a
-    look at the "[Awesome dotfiles](https://github.com/webpro/awesome-dotfiles)",
-    a curated list of dotfiles repositories and resources.
+    across the web. In GitHub, you can find "[The unofficial guide to dotfiles on GitHub](https://dotfiles.github.io/)",
+    a list of dotfiles repositories and resources.
 
     Our template was initially inspired by the [Cătălin dotfiles repository](
     https://github.com/alrra/dotfiles), a great example of a dotfiles repository
@@ -51,7 +49,7 @@ keep the repository organized.
 
 Furthermore, the template provides some scripts so that you can easily install
 and setup the dotfiles in a new machine with just a single command. For this,
-your template repository must be hosted in a remote Git repository like GitHub.
+your template repository should be hosted in a remote Git repository service, e.g., GitHub.
 
 ??? info "Supported remote Git repositories"
 
