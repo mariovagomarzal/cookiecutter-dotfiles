@@ -6,11 +6,11 @@ Remember to follow the [Code of Conduct](https://github.com/mariovagomarzal/cook
 
 !!! warning
 
-    We are working on a contribution guide. For now, please follow the instructions in the issue templates.
+    We are working on a contribution guide. For the moment, we have created some issue templates that may be useful
+    to report issues or feature requests. However, we have habilitated the option to report any issue without a template
+    if you think it is necessary (even though we recomment to fit your issue in one of the templates).
 
 ## Creating a new issue
-
-If you have found a bug or have a feature request, please open a new issue.
 
 ### Bug with template generation
 
