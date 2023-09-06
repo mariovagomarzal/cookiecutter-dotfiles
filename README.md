@@ -2,7 +2,7 @@
     <img alt="Cookiecutter dotfiles' banner" src=".github/assets/banner.png">
 </h1>
 
-# cookiecutter-dotfiles <small>v0.1.0</small>
+# cookiecutter-dotfiles <small>v0.2.0</small>
 
 Cookiecutter dotfiles is a template powered by [Cookiecutter](https://github.com/cookiecutter/cookiecutter)
 to create a custom and modular dotfiles repository.
@@ -57,10 +57,8 @@ the following structure:
 dotfiles/
 ├── LICENSE
 ├── README.md
-├── bootstrap_order_linux.txt
-├── bootstrap_order_macos.txt
-├── install_order_linux.txt
-├── install_order_macos.txt
+├── linux_order.sh
+├── macos_order.txt
 ├── common/
 ├── linux/
 ├── macos/
