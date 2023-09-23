@@ -6,19 +6,20 @@ the repository and how to use it for setting up a new system.
 
 ## Requirements
 
-For using the template you need to have installed Python 3.7 or higher
-and Cookiecutter. Once you have Python installed in your system, you can
+For using the template you need to have installed Python 3.7 or higher and
+Cookiecutter. Once you have Python installed in your system, you can
 install Cookiecutter with `pip`:
 
 ```bash
 pip install cookiecutter
 ```
 
-Preferably, you should install Cookiecutter 2.2.0 or higher. However,
-any version of Cookiecutter 2.x should work.
+Preferably, you should install Cookiecutter 2.2.0 or higher. However, any
+version of Cookiecutter 2.x should work.
 
 For more details about the installation, please refer to the
-[Cookiecutter's documentation](https://cookiecutter.readthedocs.io/en/latest/installation.html).
+[Cookiecutter's
+documentation](https://cookiecutter.readthedocs.io/en/latest/installation.html).
 
 With Cookiecutter installed, you can create a new dotfiles repository by
 running the following command:
@@ -48,12 +49,13 @@ create the repository in the current working directory.
 ## Project generation options
 
 When you run the command above, Cookiecutter will ask you for some
-information about your project. These are the options you will be prompted, what they are for and their default values:
+information about your project. These are the options you will be prompted,
+what they are for and their default values:
 
 `project_slug`
 
-:   The name of the directory where the repository will be
-    created. The default value is `dotfiles`.
+:   The name of the directory where the repository will be created. The
+    default value is `dotfiles`.
 
 `author`
 
@@ -65,34 +67,31 @@ information about your project. These are the options you will be prompted, what
 
 `github_repo`
 
-:   The name of the GitHub repository. The default value is
-    `dotfiles`.
+:   The name of the GitHub repository. The default value is `dotfiles`.
 
 `default_branch`
 
-:   The name of the default branch. The setup process will
-    search remote files in this branch. The default value is `main`.
+:   The name of the default branch. The setup process will search remote
+    files in this branch. The default value is `main`.
 
 `dotfiles_dir`
 
-:   The absolute path to the directory where the dotfiles
-    will be cloned and, therefore, where the setup process will search for
-    the dotfiles. The default value is `$HOME/Projects/dotfiles`.
+:   The absolute path to the directory where the dotfiles will be cloned
+    and, therefore, where the setup process will search for the dotfiles.
+    The default value is `$HOME/Projects/dotfiles`.
 
 `license`
 
-:   The public license of the repository. The available options
-    are `MIT`, `Apache-2.0` and `The-Unlicense`. The default value is `MIT`.
+:   The public license of the repository. The available options are `MIT`,
+    `Apache-2.0` and `The-Unlicense`. The default value is `MIT`.
 
 `macos_support`
 
-:   Whether to include macOS support or not.
-    The default value is `yes`.
+:   Whether to include macOS support or not. The default value is `yes`.
 
 `linux_support`
 
-:   Whether to include Linux support or not.
-    The default value is `yes`.
+:   Whether to include Linux support or not. The default value is `yes`.
 
 !!! tip "Using default options"
 
@@ -195,7 +194,8 @@ Here's an example of the output of the command:
 
 ## Project structure
 
-When a project is generated, the following directory structure is created (depending on the OS option you chose):
+When a project is generated, the following directory structure is created
+(depending on the OS option you chose):
 
 === "Default options"
 
@@ -247,35 +247,49 @@ When a project is generated, the following directory structure is created (depen
         └── utils.sh
     ```
 
-In the next section we will explain how to add files to
-create your own dotfiles repository.
+In the next section we will explain how to add files to create your own
+dotfiles repository.
 
 ## Preparing your dotfiles
 
-This dotfiles repository is based on a modular structure. Each module consists of a directory inside the `common`, `linux` or `macos` directory. Inside this custom directory (which we will call _module_ or _package_) you can add a `install.sh` script, a `setup.sh` script and/or a `symlinks` directory. We will explain the purpose of each of these files in the following sections.
+This dotfiles repository is based on a modular structure. Each module
+consists of a directory inside the `common`, `linux` or `macos` directory.
+Inside this custom directory (which we will call _module_ or _package_) you
+can add a `install.sh` script, a `setup.sh` script and/or a `symlinks`
+directory. We will explain the purpose of each of these files in the
+following sections.
 
-If a package has different contents for macOS and Linux, you should add it either to the `macos` or `linux` directory, respectively. If a package has the same contents indistinctly for macOS and Linux, you can add it to the `common` directory. When setting up your dotfiles, the process will search for the package in the `macos` or `linux` directory first, and if it doesn't find it, it will search for it in the `common` directory.
+If a package has different contents for macOS and Linux, you should add it
+either to the `macos` or `linux` directory, respectively. If a package has
+the same contents indistinctly for macOS and Linux, you can add it to the
+`common` directory. When setting up your dotfiles, the process will search
+for the package in the `macos` or `linux` directory first, and if it
+doesn't find it, it will search for it in the `common` directory.
 
 ### The setup process
 
-For setting up a new machine using this dotfiles repository, you need to run the `setup.sh` bash script. There are two ways of running this script that we will discuss later in the "[Using Git and GitHub to manage your dotfiles](#using-git-and-github-to-manage-your-dotfiles)" section.
+For setting up a new machine using this dotfiles repository, you need to
+run the `setup.sh` bash script. There are two ways of running this script
+that we will discuss later in the "[Using Git and GitHub to manage your
+dotfiles](#using-git-and-github-to-manage-your-dotfiles)" section.
 
 The `setup.sh` script will do the following:
 
 1. Ask for sudo permissions, even if the user is already root. This doesn't
     mean that the whole script will be run as root, but since many packages
     require sudo permissions to be installed, it is better to ask for them
-    at the beginning. The password will be stored and used if needed, so you
-    don't need to enter it again.
+    at the beginning. The password will be stored and used if needed, so
+    you don't need to enter it again.
 2. Prepare the system for the setup process. In macOS systems, this means
     installing the Xcode Command Line Tools if they are not installed. In
     Linux systems, this means installing the `git` package if it is not
-    installed. In both cases, the script will also clone the dotfiles
-    if it is not found in the specified directory (by default, `$HOME/Projects/dotfiles`).
+    installed. In both cases, the script will also clone the dotfiles if it
+    is not found in the specified directory (by default,
+    `$HOME/Projects/dotfiles`).
 3. Run the order script (`macos_order.sh` or `linux_order.sh`) to get the
-    order in which the packages have to be installed and/or configured. We will
-    explain how to edit this file and what to put in the packages in the next
-    sections.
+    order in which the packages have to be installed and/or configured. We
+    will explain how to edit this file and what to put in the packages in
+    the next sections.
 
 !!! warning "Sudo permissions"
 
@@ -284,10 +298,10 @@ The `setup.sh` script will do the following:
     because some packages like `brew` do not allow to be run as root, but, in
     some steps, it may ocasionaly need sudo permissions.
 
-Let's see how to add the files and what to put in them. For that, let's assume that we
-want to add a package called `my_package` to our dotfiles repository that works on both
-macOS and Linux. So, we will have to create a directory called `my_package` inside the
-`common` directory.
+Let's see how to add the files and what to put in them. For that, let's
+assume that we want to add a package called `my_package` to our dotfiles
+repository that works on both macOS and Linux. So, we will have to create a
+directory called `my_package` inside the `common` directory.
 
 !!! info "Not all files are required"
 
@@ -297,9 +311,10 @@ macOS and Linux. So, we will have to create a directory called `my_package` insi
 
 ### The `install.sh` script
 
-With the `my_package` directory created, we can add the `install.sh` bash script.
-This script should contain only the necessary commands to install the package (or,
-optionally, to check first if the package is already installed).
+With the `my_package` directory created, we can add the `install.sh` bash
+script. This script should contain only the necessary commands to install
+the package (or, optionally, to check first if the package is already
+installed).
 
 !!! warning "Make sure the script is a bash script"
 
@@ -310,13 +325,13 @@ optionally, to check first if the package is already installed).
     #!/bin/bash
     ```
 
-Make sure you return an exit status of `0` if the installation was successful, or
-a different exit status if the installation failed. This is important to know if
-some steps of the setup process failed.
+Make sure you return an exit status of `0` if the installation was
+successful, or a different exit status if the installation failed. This is
+important to know if some steps of the setup process failed.
 
-When a `install.sh` script is executed, all the output produced is written to a log
-file inside the `logs` directory. The name of the log file will be of the form
-`<my_package>_install.log`.
+When a `install.sh` script is executed, all the output produced is written
+to a log file inside the `logs` directory. The name of the log file will be
+of the form `<my_package>_install.log`.
 
 Let's see a general example of a `install.sh` script:
 
@@ -344,31 +359,34 @@ Let's see a general example of a `install.sh` script:
 
 ### The `setup.sh` script
 
-The `setup.sh` script is similar to the `install.sh` script.
-This script should contain the necessary commands
-to configure the package after it has been installed. For example, you can use this script
-to install plugins for a specific package or to configure the package to your needs.
+The `setup.sh` script is similar to the `install.sh` script. This script
+should contain the necessary commands to configure the package after it has
+been installed. For example, you can use this script to install plugins for
+a specific package or to configure the package to your needs.
 
-Do not use this script to link files to the system. This should be done in the `symlink`
-directory, as we will see in the next section.
+Do not use this script to link files to the system. This should be done in
+the `symlink` directory, as we will see in the next section.
 
-Similarly to the `install.sh` script, the `setup.sh` script should return an exit status
-of `0` if the setup was successful, or a different exit status if the setup failed. The
-output of this script is also written to a log file inside the `logs` directory. The name
-of the log file will be of the form `<my_package>_setup.log`.
+Similarly to the `install.sh` script, the `setup.sh` script should return
+an exit status of `0` if the setup was successful, or a different exit
+status if the setup failed. The output of this script is also written to a
+log file inside the `logs` directory. The name of the log file will be of
+the form `<my_package>_setup.log`.
 
 ### The `symlink` directory
 
-The `symlink` directory contains the files that have to be linked to the system. This
-process is done just after the `setup.sh` script of the package is executed. The files
-in this folder will be linked to the same path in the system relative to the `$HOME`
-directory. For example, if you have a file calle `.my_file` in the `symlinks` directory,
-it will be linked to `$HOME/.my_file`.
+The `symlink` directory contains the files that have to be linked to the
+system. This process is done just after the `setup.sh` script of the
+package is executed. The files in this folder will be linked to the same
+path in the system relative to the `$HOME` directory. For example, if you
+have a file calle `.my_file` in the `symlinks` directory, it will be linked
+to `$HOME/.my_file`.
 
-But there's more. You can also create directories inside the `symlink` directory and put
-files inside them. This files will be linked to the same path in the system relative to
-the `$HOME` directory, but inside the directory you created. Intermediately directories
-will be created if they don't exist.
+But there's more. You can also create directories inside the `symlink`
+directory and put files inside them. This files will be linked to the same
+path in the system relative to the `$HOME` directory, but inside the
+directory you created. Intermediately directories will be created if they
+don't exist.
 
 Let's see a brief example:
 
@@ -405,12 +423,14 @@ Let's see a brief example:
 
 ### The order files
 
-Once we have created all the packages we want to add to our dotfiles repository, we have
-to tell the setup process in which order they have to be installed and configured. For
-that, we have to edit the `macos_order.sh` and/or `linux_order.sh` files. The syntax of these
-files is simple. Each line contains the _operation_ we want to perform and the _package_
-we want to perform it on. The _operation_ can be either `install`, `setup` or `symlink`. The _package_
-must be a directory inside the `common`, `macos` or `linux` directory.
+Once we have created all the packages we want to add to our dotfiles
+repository, we have to tell the setup process in which order they have to
+be installed and configured. For that, we have to edit the `macos_order.sh`
+and/or `linux_order.sh` files. The syntax of these files is simple. Each
+line contains the _operation_ we want to perform and the _package_ we want
+to perform it on. The _operation_ can be either `install_package`,
+`setup_package` or `symlink_package`. The _package_ must be a directory
+inside the `common`, `macos` or `linux` directory.
 
 Let's see an example of the order files:
 
@@ -425,9 +445,9 @@ Let's see an example of the order files:
         #!bin/bash
         # Order file for a macOS setup
 
-        install my_package
-        setup my_package
-        symlink my_package
+        install_package my_package
+        setup_package my_package
+        symlink_package my_package
         ```
 
     === "Linux"
@@ -436,9 +456,9 @@ Let's see an example of the order files:
         #!bin/bash
         # Order file for a Linux setup
 
-        install my_package
-        setup my_package
-        symlink my_package
+        install_package my_package
+        setup_package my_package
+        symlink_package my_package
         ```
 
     This will will run the `install.sh` script of `my_package`, then the `setup.sh` script
@@ -447,22 +467,22 @@ Let's see an example of the order files:
 
 ## Using Git and GitHub to manage your dotfiles
 
-The idea of the template is to use Git and GitHub to manage your dotfiles. For that,
-you will have to initialize a Git repository in the root directory of your dotfiles
-repository. Simply run the following command:
+The idea of the template is to use Git and GitHub to manage your dotfiles.
+For that, you will have to initialize a Git repository in the root
+directory of your dotfiles repository. Simply run the following command:
 
 ``` bash
 git init
 ```
 
-A `.gitignore` file is already provided in the template. This file ignores the `logs`
-directory. Also a `README.md` file is provided with some basic information about the
-repository. A `LICENSE` file is also provided with the license you chose when creating
-the repository.
+A `.gitignore` file is already provided in the template. This file ignores
+the `logs` directory. Also a `README.md` file is provided with some basic
+information about the repository. A `LICENSE` file is also provided with
+the license you chose when creating the repository.
 
-Now you can add the files you want to track to the repository and commit them. Make sure
-you commit "stable" versions to the branch you specified as default when creating the
-repository.
+Now you can add the files you want to track to the repository and commit
+them. Make sure you commit "stable" versions to the branch you specified as
+default when creating the repository.
 
 !!! tip Versioning
 
@@ -470,11 +490,11 @@ repository.
     dotfiles. This is a versioning scheme that uses the date as the version number.
     Tag your commits on the default branch with this version numbers.
 
-To share your dotfiles with other people and to be able to install them in other
-machines, you will have to push your repository to GitHub. For that, you will have
-to create a remote repository in GitHub and push your local repository to it. Make sure
-the user and the repository name are the same as the ones you specified when creating
-the repository.
+To share your dotfiles with other people and to be able to install them in
+other machines, you will have to push your repository to GitHub. For that,
+you will have to create a remote repository in GitHub and push your local
+repository to it. Make sure the user and the repository name are the same
+as the ones you specified when creating the repository.
 
 ``` bash
 git remote add origin https://github.com/<github_username>/<github_repo>.git
@@ -488,9 +508,10 @@ git push -u origin <default_branch>
     * [Git documentation](https://git-scm.com/doc)
     * [GitHub documentation](https://docs.github.com/en)
 
-To setup your new machine using your dotfiles, you can manually clone the repository in
-the path you specified when creating the repository (i.e. `dotfiles_dir`). Then, you
-can run the `setup.sh` script with the following command:
+To setup your new machine using your dotfiles, you can manually clone the
+repository in the path you specified when creating the repository (i.e.
+`dotfiles_dir`). Then, you can run the `setup.sh` script with the following
+command:
 
 ``` bash
 bash -c <dotfiles_dir>/src/setup.sh
