@@ -1,16 +1,21 @@
 import nox
 
+
+def install_requirements(session, file="requirements.txt"):
+    session.install("-r", file)
+
+
 @nox.session
 def tests(session):
-    session.install("pytest", "pytest-cookies")
+    install_requirements(session)
     session.run("pytest")
 
 @nox.session
 def lint(session):
-    session.install("ruff")
+    install_requirements(session)
     session.run("ruff", "check", ".")
 
 @nox.session
 def docs(session):
-    session.install("mkdocs-material")
+    install_requirements(session)
     session.run("mkdocs", "build", "--clean")
