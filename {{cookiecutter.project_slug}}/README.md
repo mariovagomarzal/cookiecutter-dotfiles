@@ -11,10 +11,13 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/{{ cookiecutter.github_u
 
 The setup process will:
 
-* Download `git` (or Xcode Command Line Tools if on macOS) if not already installed.
-* Clone the dotfiles repo to `{{ cookiecutter.dotfiles_dir }}` if not already cloned.
-* Install the packages listed in the specific OS order file.
-* Bootstrap the packages listed in the specific OS order file.
+* Download `git` (or Xcode Command Line Tools if on macOS) if not already
+  installed.
+* Clone the dotfiles repo to `{{ cookiecutter.dotfiles_dir }}` if not
+  already cloned.
+* Run the order script specific to the current OS.
 
 ## License
-This project is licensed by [{{ cookiecutter.author }}](https://github.com/{{ cookiecutter.github_username }}) under the terms of the [{{ cookiecutter.license }} license](/LICENSE).
+This project is licensed by [{{ cookiecutter.author
+}}](https://github.com/{{ cookiecutter.github_username }}) under the terms
+of the [{{ cookiecutter.license }} license](/LICENSE).
