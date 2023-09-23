@@ -1,3 +1,8 @@
+cookiecutter-dotfiles-0.2.1 (2023-09-23)
+
+    * Fixed #4: Extra spaces in the LICENSE file
+
+
 cookiecutter-dotfiles-0.2.0 (2023-09-06)
 
     * Remove specific `intall` and `bootstrap` scripts and use a unique order file
