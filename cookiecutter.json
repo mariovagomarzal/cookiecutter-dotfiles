@@ -9,6 +9,8 @@
     "macos_support": ["yes", "no"],
     "linux_support": ["yes", "no"],
     "_jinja2_env_vars": {
+        "lstrip_blocks": true,
+        "trim_blocks": true,
         "comment_start_string": "{##",
         "comment_end_string": "##}"
     }

@@ -2,31 +2,34 @@
     <img alt="Cookiecutter dotfiles' banner" src=".github/assets/banner.png">
 </h1>
 
-# cookiecutter-dotfiles <small>v0.2.0</small>
+# cookiecutter-dotfiles <small>v0.2.1</small>
 
-Cookiecutter dotfiles is a template powered by [Cookiecutter](https://github.com/cookiecutter/cookiecutter)
-to create a custom and modular dotfiles repository.
+Cookiecutter dotfiles is a template powered by
+[Cookiecutter](https://github.com/cookiecutter/cookiecutter) to create a
+custom and modular dotfiles repository.
 
-For a detailed explanation of the template, please refer to the [documentation](https://mariovagomarzal.github.io/cookiecutter-dotfiles/).
+For a detailed explanation of the template, please refer to the
+[documentation](https://mariovagomarzal.github.io/cookiecutter-dotfiles/).
 
 ## Quick start
 
-To use the template, you need to have [Cookiecutter](https://github.com/cookiecutter/cookiecutter)
-installed. For that, if you already have Python installed, you can run:
+To use the template, you need to have
+[Cookiecutter](https://github.com/cookiecutter/cookiecutter) installed. For
+that, if you already have Python installed, you can run:
 
 ```bash
 pip install cookiecutter
 ```
 
-Once you have Cookiecutter installed, you can run the following command to create
-a new dotfiles repository in your `~/Projects` directory:
+Once you have Cookiecutter installed, you can run the following command to
+create a new dotfiles repository in your `~/Projects` directory:
 
 ```bash
 cookiecutter -o ~/Projects gh:mariovagomarzal/cookiecutter-dotfiles
 ```
 
-You will be prompted to enter some information about your new dotfiles repository.
-Here's an example of the output:
+You will be prompted to enter some information about your new dotfiles
+repository. Here's an example of the output:
 
 ```bash
 project_slug [dotfiles]:
@@ -50,8 +53,8 @@ Select linux_support:
 Choose from 1, 2 [1]: ↩
 ```
 
-This will create a new directory called `dotfiles` in your `~/Projects` directory with
-the following structure:
+This will create a new directory called `dotfiles` in your `~/Projects`
+directory with the following structure:
 
 ```bash
 dotfiles/
@@ -69,13 +72,18 @@ dotfiles/
     └── utils.sh
 ```
 
-The `README.md` file contains the documentation of your dotfiles repository.
-Now you can start customizing your repository by adding new files and directories
-with your dotfiles. See the [documentation](https://mariovagomarzal.github.io/cookiecutter-dotfiles/)
+The `README.md` file contains the documentation of your dotfiles
+repository. Now you can start customizing your repository by adding new
+files and directories with your dotfiles. See the
+[documentation](https://mariovagomarzal.github.io/cookiecutter-dotfiles/)
 for more information on how to do that.
 
 ## License
 
-This project is licensed by [Mario Vago Marzal](https://github.com/mariovagomarzal) under the terms of the [MIT License](/LICENSE).
+This project is licensed by [Mario Vago
+Marzal](https://github.com/mariovagomarzal) under the terms of the [MIT
+License](/LICENSE).
 
-_Note: The [LICENSE](/{{cookiecutter.project_slug}}/LICENSE) file in the `{{cookiecutter.project_slug}}` directory is part of the template and does not affect the license of the project itself._
+_Note: The [LICENSE](/{{cookiecutter.project_slug}}/LICENSE) file in the
+`{{cookiecutter.project_slug}}` directory is part of the template and does
+not affect the license of the project itself._
