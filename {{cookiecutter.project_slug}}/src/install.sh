@@ -16,13 +16,12 @@
 # Run the 'install.sh' script of a given directory.
 # Arguments:
 #   $1: Package (directory) to install.
-#   $2: OS name.
 # Returns:
 #   Exit code of the 'install.sh' script.
 # - - - - - - - - - - - - - - - - - - - - - - - - - -
 install_package() {
     local -r dir="${1}"
-    local -r os_name="${2}"
+    local -r os_name=$(get_os_name)
 
     local install_script=""
     local exit_code=0
