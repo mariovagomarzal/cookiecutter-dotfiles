@@ -16,13 +16,12 @@
 # Run the 'setup.sh' script of a given directory.
 # Arguments:
 #   $1: Package (directory) to setup.
-#   $2: OS name.
 # Returns:
 #   Exit code of the 'setup.sh' script.
 # - - - - - - - - - - - - - - - - - - - - - - - - -
 setup_package() {
     local -r dir="${1}"
-    local -r os_name="${2}"
+    local -r os_name=$(get_os_name)
 
     local setup_script=""
     local exit_code=0
@@ -61,7 +60,6 @@ setup_package() {
 # directory.
 # Arguments:
 #   $1: Package (directory) to symlink.
-#   $2: OS name.
 # Returns:
 #   If any of the files fails to symlink, the
 #   function will return 1. Otherwise, it will
@@ -69,7 +67,7 @@ setup_package() {
 # - - - - - - - - - - - - - - - - - - - - - - - - - - -
 symlink_package() {
     local -r dir="${1}"
-    local -r os_name="${2}"
+    local -r os_name=$(get_os_name)
     
     local symlink_dir=""
     local exit_code=0

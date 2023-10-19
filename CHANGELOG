@@ -1,3 +1,8 @@
+cookiecutter-dotfiles-0.2.2 (2023-10-20)
+
+    * Fixed #8: The setup process doesn't find the packages scripts
+    * Now the `setup.sh` script has execution permissions
+
 cookiecutter-dotfiles-0.2.1 (2023-09-23)
 
     * Fixed #3: Explain in the docs that the available operations are not

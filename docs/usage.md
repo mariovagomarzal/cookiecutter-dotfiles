@@ -498,7 +498,7 @@ as the ones you specified when creating the repository.
 
 ``` bash
 git remote add origin https://github.com/<github_username>/<github_repo>.git
-git push -u origin <default_branch>
+git push --set-upstream origin <default_branch>
 ```
 
 ??? tip "Git and GitHub documentation"

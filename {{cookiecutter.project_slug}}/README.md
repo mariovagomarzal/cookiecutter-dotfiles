@@ -1,7 +1,7 @@
 # [{{ cookiecutter.author }}](https://github.com/{{ cookiecutter.github_username }})'s dotfiles
 
 This dotfiles repository was created using the [cookiecutter-dotfiles
-v0.2.1](https://github.com/mariovagomarzal/cookiecutter-dotfiles/releases/tag/0.2.1)
+v0.2.2](https://github.com/mariovagomarzal/cookiecutter-dotfiles/releases/tag/0.2.2)
 template.
 
 ## Setup
