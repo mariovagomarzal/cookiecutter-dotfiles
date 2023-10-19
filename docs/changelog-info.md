@@ -2,6 +2,11 @@
 
 ## Cookiecutter Dotfiles
 
+### 0.2.2 <small>October 20, 2023</small>
+
+- Fixed #8: The setup process doesn't find the packages scripts
+- Now the `setup.sh` script has execution permissions
+
 ### 0.2.1 <small>September 23, 2023</small>
 
 - Fixed #3: Explain in the docs that the available operations are not
