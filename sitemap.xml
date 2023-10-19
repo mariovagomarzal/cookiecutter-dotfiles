@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://mariovagomarzal.github.io/cookiecutter-dotfiles/</loc>
+         <lastmod>2023-10-19</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://mariovagomarzal.github.io/cookiecutter-dotfiles/changelog-info/</loc>
+         <lastmod>2023-10-19</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://mariovagomarzal.github.io/cookiecutter-dotfiles/contributing-info/</loc>
+         <lastmod>2023-10-19</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://mariovagomarzal.github.io/cookiecutter-dotfiles/license-info/</loc>
+         <lastmod>2023-10-19</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://mariovagomarzal.github.io/cookiecutter-dotfiles/usage/</loc>
+         <lastmod>2023-10-19</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+</urlset>
